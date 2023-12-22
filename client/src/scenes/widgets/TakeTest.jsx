@@ -1,9 +1,9 @@
-import { Box, Button, Typography } from "@mui/material";
-import WidgetWrapper from "components/WidgetWrapper";
-import { useTheme } from "@emotion/react";
-import FlexBetween from "components/FlexBetween";
-import { TextSnippetOutlined, WatchLaterOutlined } from "@mui/icons-material";
-import { useState } from "react";
+import { Box, Button, Typography } from "@mui/material"
+import WidgetWrapper from "components/WidgetWrapper"
+import { useTheme } from "@emotion/react"
+import FlexBetween from "components/FlexBetween"
+import { TextSnippetOutlined, WatchLaterOutlined } from "@mui/icons-material"
+import { useState } from "react"
 import { useNavigate } from 'react-router-dom'
 
 export const TakeTest = () => {
@@ -13,8 +13,8 @@ export const TakeTest = () => {
     const [isResult, setisResult] = useState(false)
 
 
-    const { palette } = useTheme();
-    const primaryLight = palette.primary.light;
+    const { palette } = useTheme()
+    const primaryLight = palette.primary.light
     return (
         <WidgetWrapper p="1rem"
             sx={{
@@ -80,7 +80,9 @@ export const TakeTest = () => {
                     </Box>
                     <Button variant="outlined"
                         onClick={() => navigate('/home/patient/test')}
-                    >Here</Button>
+                    >
+                        Here
+                    </Button>
                 </FlexBetween>
             }
         </WidgetWrapper>

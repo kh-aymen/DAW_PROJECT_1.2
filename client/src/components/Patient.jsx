@@ -1,26 +1,24 @@
-import { DangerousOutlined, DeleteOutlineOutlined, PersonAddOutlined, PersonRemoveOutlined } from "@mui/icons-material"
-import { Box, IconButton, Typography, useTheme, Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@mui/material"
+import { DangerousOutlined, DeleteOutlineOutlined } from "@mui/icons-material"
+import { Box, IconButton, Typography, useTheme, Dialog, DialogTitle, DialogContent, DialogActions, Button, useMediaQuery } from "@mui/material"
 import { useDispatch, useSelector } from "react-redux"
-import { useNavigate } from "react-router-dom"
 import { setPatient } from "state"
 import FlexBetween from "./FlexBetween"
 import UserImage from "./UserImage"
 import { useState } from "react"
 
-const Patient = ({ patientId, userId, name, subtitle, userPicturePath }) => {
+const Patient = ({ patientId, userId, name, subtitle, userPicturePath, birthday, email, location, createdAt }) => {
     const dispatch = useDispatch()
-    const navigate = useNavigate()
     const token = useSelector((state) => state.token)
     const [isDialogOpen, setDialogOpen] = useState(false)
     const patient = useSelector((state) => state.patient)
     const Ids = { patientId, userId }
+    const isNonMobileScreens = useMediaQuery("(min-width:900px)")
+
 
     const { palette } = useTheme()
-    const primaryLight = palette.primary.light
-    const primaryDark = palette.primary.dark
     const main = palette.neutral.main
     const medium = palette.neutral.medium
-
+    const defaultColor = palette.background.default
 
 
     const getPatient = async () => {
@@ -54,8 +52,22 @@ const Patient = ({ patientId, userId, name, subtitle, userPicturePath }) => {
 
 
     return (
-        <FlexBetween>
-            <FlexBetween gap="1rem">
+        <FlexBetween
+            p={'1rem 0.2rem'}
+            sx={{
+                "&:hover": {
+                    backgroundColor: defaultColor,
+                },
+            }}
+        >
+            <Box
+                width={'233px'}
+                display={'flex'}
+                alignItems={'center'}
+                justifyContent={'flex-start'}
+                gap="1rem"
+
+            >
                 <UserImage image={userPicturePath} size="55px" />
                 <Box
                 //   onClick={() => {
@@ -77,13 +89,47 @@ const Patient = ({ patientId, userId, name, subtitle, userPicturePath }) => {
                         {name}
                     </Typography>
                     <Typography color={medium} fontSize="0.75rem">
-                        {subtitle}
+                        {email}
                     </Typography>
                 </Box>
-            </FlexBetween>
+            </Box>
+
+            {
+                isNonMobileScreens &&
+                <>
+                    <Box
+                        display={'flex'}
+                        alignItems={'center'}
+                        justifyContent={'flex-start'}
+                        flexDirection={'column'}
+                    >
+                        <Typography color={medium} fontSize="0.75rem">
+                            Location: {location}
+                        </Typography>
+                        <Typography color={medium} fontSize="0.75rem">
+                            Birthday: {new Date(birthday).toLocaleDateString()}
+                        </Typography>
+                    </Box>
+
+                    <Box
+                        display={'flex'}
+                        alignItems={'center'}
+                        justifyContent={'flex-start'}
+                        flexDirection={'column'}
+                    >
+                        <Typography color={medium} fontSize="0.75rem">
+                            Occupation: {subtitle}
+                        </Typography>
+                        <Typography color={medium} fontSize="0.75rem">
+                            Date of Account: {new Date(createdAt).toLocaleDateString()}
+                        </Typography>
+                    </Box>
+                </>
+            }
+
             <IconButton
                 onClick={handleOpenDialog}
-                sx={{  p: "0.6rem" }}
+                sx={{ p: "0.6rem" }}
             >
                 <DeleteOutlineOutlined color="error" />
             </IconButton>

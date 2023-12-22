@@ -2,8 +2,8 @@ import { Box, useMediaQuery } from "@mui/material"
 import { useSelector } from "react-redux"
 import Navbar from "scenes/navbar"
 import UserWidget from "scenes/widgets/UserWidget"
-import ShowPatient from "scenes/widgets/ShowPatient"
-import ShowDoctors from "scenes/widgets/ShowDoctors"
+import { DeleteDoctors } from "scenes/widgets/DeleteDoctors"
+import { DeletePatient } from "scenes/widgets/DeletePatient"
 
 const HomePage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)")
@@ -21,7 +21,7 @@ const HomePage = () => {
         justifyContent="space-between"
       >
         <Box flexBasis={isNonMobileScreens ? "26%" : undefined}>
-          <UserWidget userId={_id} picturePath={picturePath}  moreinfo={true}/>
+          <UserWidget userId={_id} picturePath={picturePath} moreinfo={true} />
         </Box>
         <Box
           flexBasis={isNonMobileScreens ? "42%" : undefined}
@@ -32,10 +32,10 @@ const HomePage = () => {
         </Box>
         <Box flexBasis="26%">
           {/* <Widget here/> */}
-          <ShowDoctors />
+          <DeleteDoctors />
           <Box m="2rem 0" />
           {/* <Widget here /> */}
-          <ShowPatient />
+          <DeletePatient />
         </Box>
       </Box>
     </Box>

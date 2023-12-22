@@ -20,6 +20,8 @@ import './App.css'
 
 import QuizForm from "scenes/widgets/QuizWidget"
 import QuestionForm from "scenes/widgets/QuestionForm"
+import ShowPatient from "scenes/widgets/ShowPatient"
+import ShowDoctors from "scenes/widgets/ShowDoctors"
 
 
 function App() {
@@ -33,7 +35,6 @@ function App() {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <Routes>
-            <Route path="/login" element={<LoginPage />} />
             <Route
               path="/home/patient"
               element={isAuth ? <PatientHome /> : <Navigate to="/login" />}
@@ -55,9 +56,18 @@ function App() {
               element={isAuth ? <AdminHome /> : <Navigate to="/login" />}
             />
             <Route
+              path="/home/admin/patients"
+              element={isAuth ? <ShowPatient /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/home/admin/doctors"
+              element={isAuth ? <ShowDoctors /> : <Navigate to="/login" />}
+            />
+            <Route
               path="/profile/:userId"
               element={isAuth ? <ProfilePage /> : <Navigate to="/login" />}
             />
+            <Route path="/login" element={<LoginPage />} />
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />

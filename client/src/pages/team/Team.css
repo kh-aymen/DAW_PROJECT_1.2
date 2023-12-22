@@ -1,0 +1,71 @@
+.team .content {
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+    min-width: 330px;
+}
+
+.team .content .member {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    min-width: 320px;
+}
+
+.team .content .member img{
+    width: 320px;
+}
+
+.team .content .member>div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.7rem;
+    padding: 1rem;
+    background: rgba(220, 227, 255, 0.41);
+    width: 100%;
+}
+
+.team .content .member>div h1 {
+    color: #000;
+    font-family: Lexend;
+    font-size: 1.5625rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 163.125%;
+    letter-spacing: 0.0625rem;
+}
+
+.team .content .member>div span {
+    color: var(--blue1);
+    font-family: Lexend;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 163.125%;
+    letter-spacing: 0.04rem;
+}
+
+.team .content .member>div .icons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 1rem;
+}
+
+.team .content .member>div .icons svg {
+    width: 3.286rem;
+    height: 2.8125rem;
+    color: var(--blue2);
+    cursor: pointer;
+}
+
+.team .content .member>div .icons svg:hover {
+    color: var(--blue1);
+}

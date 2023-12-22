@@ -1,0 +1,81 @@
+.Homeheader {
+    background-image: url(../../assets/homeBG.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.Homeheader .contnet {
+    padding: 2rem;
+    margin-top: 6rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.Homeheader .contnet .left {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.Homeheader .contnet .left h1 {
+    color: #FFF;
+    font-size: 3.9375rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.Homeheader .contnet .left p {
+    color: #FFF;
+    font-size: 1.0625rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 313.125%;
+    letter-spacing: 0.0425rem;
+}
+
+@media (max-width: 1400px) {
+    .Homeheader .contnet {
+        flex-direction: column;
+        gap: 2rem;
+        text-align: center;
+    }
+
+    .Homeheader .contnet .left {
+        align-items: center;
+    }
+
+    .Homeheader .contnet .left h1 {
+        text-align: center;
+    }
+
+    .Homeheader .contnet .left p {
+        text-align: center;
+    }
+}
+
+
+@media (max-width: 800px) {
+    .Homeheader .contnet .left h1 {
+        font-size: 3rem;
+    }
+
+    .Homeheader .contnet .left p {
+        font-size: .8rem;
+    }
+
+    .Homeheader .contnet .right img {
+        width: 330px;
+    }
+}

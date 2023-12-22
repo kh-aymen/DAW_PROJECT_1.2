@@ -1,0 +1,36 @@
+.title_div {
+    width: 560px;
+    height: auto;
+    margin: auto;
+}
+
+.title_div h3 {
+    background-color: var(--blue3);
+    padding: .7rem 1.1rem;
+    border-radius: 215px;
+    color: var(--blue1);
+}
+
+.title_div p {
+    color: var(--black);
+    text-align: center;
+    font-family: var(--mainfont);
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 65.25px;
+    letter-spacing: 1.6px;
+    width: 110%;
+}
+
+@media (max-width: 640px) {
+    .title_div {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .title_div p {
+        font-size: 25px;
+        width: 100%;
+    }
+}

@@ -1,0 +1,55 @@
+.defi {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.defi .left {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 2rem;
+    flex-direction: column;
+}
+
+.defi .left div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.defi .left div h1 {
+    color: var(--blue1);
+    font-size: 3rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.defi .left p {
+    color: rgba(0, 29, 35, 0.74);
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+@media (max-width: 1400px) {
+    .defi {
+        flex-direction: column;
+    }
+
+    .defi .right img {
+        width: 330px;
+    }
+}
+
+@media (max-width: 640px) {
+    .defi .left div h1 {
+        color: var(--blue1);
+        font-size: 2rem;
+  
+    }
+}

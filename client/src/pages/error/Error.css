@@ -1,0 +1,22 @@
+.error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+    flex-direction: column;
+    margin-bottom: 2rem;
+}
+
+.error svg {
+    color: var(--orange) !important;
+    font-size: 80px;
+}
+
+.error h1 {
+    font-size: 40px;
+    font-weight: 900;
+}
+
+.error p {
+    text-align: center;
+}

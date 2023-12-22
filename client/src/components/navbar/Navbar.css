@@ -1,0 +1,48 @@
+.navbar {
+    width: 90% !important;
+    margin: auto;
+    border-radius: 32px;
+    background: rgba(221, 217, 217, 0.22);
+    backdrop-filter: blur(7.5px);
+    position: absolute;
+    top: 1rem;
+    padding: 1rem 1.5rem !important;
+    justify-content: space-between !important;
+    transition: all ease-in-out 100ms;
+}
+
+
+.navbar .logo img {
+    width: 150px;
+}
+
+.navbar .nav ul {
+    list-style-type: none;
+}
+
+.navbar .nav ul a {
+    font-size: 1.1rem;
+}
+
+.minul {
+    align-items: flex-start !important;
+    padding: 1.5rem !important;
+}
+
+.minunavb {
+    align-items: flex-start !important;
+    padding: 1.5rem !important;
+    gap: 0 !important;
+}
+
+.logoRes {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logoRes svg {
+    fill: var(--white);
+    font-size: 2rem;
+}

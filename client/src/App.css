@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend&family=Oregano:ital@1&display=swap');
+
+
+:root {
+    --black: #000;
+    --white: #fff;
+    /* --gray: #bdbdbd; */
+    --gray: #a8a8a8;
+    --gray1: #E8F0FC;
+    --gray2: #d6eefd;
+    --lightblue: #f9fcfe;
+    --orange: #FF8E00;
+    --blue1: #0038FF;
+    --blue2: #00D5FA;
+    --blue3: rgba(118, 148, 255, 0.26);
+    --footerBg: rgba(25, 9, 51, 0.94);
+    --p: rgba(0, 29, 35, 0.7412);
+    --mainfont: 'Lexend', sans-serif;
+    --secondfont: 'Oregano', cursive;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    font-family: var(--mainfont);
+    transition: all 100ms ease-in;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+a {
+    color: var(--white);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all ease-in 200ms;
+}
+
+.section {
+    padding: 1.5rem;
+    width: 100%;
+}
+
+
+.flexCenter {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.flexColCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.p {
+    color: var(--p);
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 56.488px;
+    letter-spacing: 1.87px;
+    font-family: var(--mainfont);
+}
+
+.Btn {
+    padding: .7rem 1.1rem !important;
+    border-radius: 216px !important;
+    display: flex !important;
+    justify-content: center !important;
+    gap: 7px !important;
+    align-items: center !important;
+    font-family: var(--mainfont) !important;
+    font-weight: 500 !important;
+    font-size: 0.9rem !important;
+    outline: none !important;
+    transition: all 100ms ease-in !important;
+    color: var(--white) !important;
+}
+
+.Btn:active {
+    transform: scale(0.95);
+}
+
+.Btn {
+    background: var(--blue2) !important;
+    border: 1px solid var(--blue2) !important;
+}
+
+.Btn:hover {
+    background: var(--blue1) !important;
+    border: 1px solid var(--blue1) !important;
+}
+
+/* media queries */
+@media (min-width: 2300px) {
+    .section {
+        max-width: 2300px;
+        margin: auto;
+    }
+
+    a {
+        font-size: 1.4rem;
+    }
+
+}
+
+@media (min-width: 640px) {
+    .section {
+        padding: 4rem;
+    }
+}
+
+@media (max-width: 640px) {}

@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
   mode: "light",
@@ -8,22 +8,25 @@ const initialState = {
   quizResult: [],
   patient: [],
   doctor: [],
-};
+}
 
 export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
     setMode: (state) => {
-      state.mode = state.mode === "light" ? "dark" : "light";
+      state.mode = state.mode === "light" ? "dark" : "light"
     },
     setLogin: (state, action) => {
-      state.user = action.payload.user;
-      state.token = action.payload.token;
+      state.user = action.payload.user
+      state.token = action.payload.token
+    },
+    setUser: (state, action) => {
+      state.user = action.payload.user
     },
     setLogout: (state) => {
-      state.user = null;
-      state.token = null;
+      state.user = null
+      state.token = null
     },
     setQuiz: (state, action) => {
       state.quiz = action.payload.quiz
@@ -39,8 +42,8 @@ export const authSlice = createSlice({
       state.patient = action.payload.patient
     },
   },
-});
+})
 
-export const { setMode, setLogin, setLogout, setQuiz, setPatient, setDoctor, setQuizResult } =
-  authSlice.actions;
-export default authSlice.reducer;
+export const { setMode, setLogin, setLogout, setQuiz, setPatient, setDoctor, setQuizResult, setUser } =
+  authSlice.actions
+export default authSlice.reducer

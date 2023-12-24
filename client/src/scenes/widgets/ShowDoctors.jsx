@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { setDoctor } from "state"
 import SearchIcon from "@mui/icons-material/Search"
 import FlexBetween from "components/FlexBetween"
+import Navbar from "scenes/navbar"
 
 const ShowDoctors = () => {
     const dispatch = useDispatch()
@@ -35,54 +36,56 @@ const ShowDoctors = () => {
             doc.user.lastName.toLowerCase().includes(searchTerm.toLowerCase())
     )
 
-    console.log(doctor)
     return (
-        <WidgetWrapper
-            width={isNonMobileScreens ? '90%' : '100%'}
-            margin={'auto'}
-        >
-            <FlexBetween>
-                <Typography
-                    color={palette.neutral.dark}
-                    variant="h4"
-                    fontWeight="500"
-                    sx={{ mb: "1.5rem", textDecoration: `underline 2px ${primarymain}` }}
-                >
-                    Doctors List
-                </Typography>
-                <Box sx={{ display: "flex", alignItems: "center", mb: "1rem" }}>
-                    <Input
-                        placeholder="Search doctors..."
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        endAdornment={
-                            <InputAdornment position="end">
-                                <IconButton>
-                                    <SearchIcon />
-                                </IconButton>
-                            </InputAdornment>
-                        }
-                    />
-                </Box>
-            </FlexBetween>
-            <Box display="flex" flexDirection="column" gap="1.5rem" mt={'1.5rem'}>
-                {filteredDoctors.map((doctor) => (
-                    <Doctor
-                        key={doctor._id}
-                        doctorId={doctor._id}
-                        userId={doctor.user._id}
-                        name={`${doctor.user.firstName} ${doctor.user.lastName}`}
-                        subtitle={doctor.user.occupation}
-                        userPicturePath={doctor.user.picturePath}
-                        birthday={doctor.user.birthday}
-                        email={doctor.user.email}
-                        location={doctor.user.location}
-                        createdAt={doctor.user.createdAt}
+        <>
+            <Navbar />
+            <WidgetWrapper
+                width={isNonMobileScreens ? '90%' : '100%'}
+                margin={'2rem auto'}
+            >
+                <FlexBetween>
+                    <Typography
+                        color={palette.neutral.dark}
+                        variant="h4"
+                        fontWeight="500"
+                        sx={{ mb: "1.5rem", textDecoration: `underline 2px ${primarymain}` }}
+                    >
+                        Doctors List
+                    </Typography>
+                    <Box sx={{ display: "flex", alignItems: "center", mb: "1rem" }}>
+                        <Input
+                            placeholder="Search doctors..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            endAdornment={
+                                <InputAdornment position="end">
+                                    <IconButton>
+                                        <SearchIcon />
+                                    </IconButton>
+                                </InputAdornment>
+                            }
+                        />
+                    </Box>
+                </FlexBetween>
+                <Box display="flex" flexDirection="column" gap="1.5rem" mt={'1.5rem'}>
+                    {filteredDoctors.map((doctor) => (
+                        <Doctor
+                            key={doctor._id}
+                            doctorId={doctor._id}
+                            userId={doctor.user._id}
+                            name={`${doctor.user.firstName} ${doctor.user.lastName}`}
+                            subtitle={doctor.user.occupation}
+                            userPicturePath={doctor.user.picturePath}
+                            birthday={doctor.user.birthday}
+                            email={doctor.user.email}
+                            location={doctor.user.location}
+                            createdAt={doctor.user.createdAt}
 
-                    />
-                ))}
-            </Box>
-        </WidgetWrapper>
+                        />
+                    ))}
+                </Box>
+            </WidgetWrapper>
+        </>
     )
 }
 

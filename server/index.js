@@ -17,6 +17,7 @@ import { register } from "./controllers/auth.js"
 
 
 
+
 /* CONFIGURATIONS */
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -36,33 +37,33 @@ const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "public/assets")
   },
-  filename: function (req, file, cb) { 
+  filename: function (req, file, cb) {
     cb(null, file.originalname)
   },
 })
 const upload = multer({ storage })
 
 /* ROUTES WITH FILES */
-app.post("/auth/register", upload.single("picture"), register)   
+app.post("/auth/register", upload.single("picture"), register)
 
- 
+
+
 /* ROUTES */
 app.use("/auth", authRoutes)
 app.use("/users", userRoutes)
 app.use("/question", qustionRoutes)
-app.use("/patients", patientRoutes) 
+app.use("/patients", patientRoutes)
 app.use("/doctors", doctorsRoutes)
-       
 
-/* MONGOOSE SETUP */  
+
+/* MONGOOSE SETUP */
 const PORT = process.env.PORT || 6001
 mongoose
-  .connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,  
+  .connect(process.env.MONGO_URL, { 
+    useNewUrlParser: true,
     useUnifiedTopology: true,
-  }) 
+  })
   .then(() => {
     app.listen(PORT, () => console.log(`Server Running on Port: ${PORT}`))
   })
   .catch((error) => console.log(`${error} did not connect`))
-               

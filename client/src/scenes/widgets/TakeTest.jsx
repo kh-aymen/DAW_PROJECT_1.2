@@ -16,7 +16,8 @@ export const TakeTest = () => {
     const { palette } = useTheme()
     const primaryLight = palette.primary.light
     return (
-        <WidgetWrapper p="1rem"
+        <WidgetWrapper
+            p="1rem"
             sx={{
                 "&:hover": {
                     cursor: "pointer",

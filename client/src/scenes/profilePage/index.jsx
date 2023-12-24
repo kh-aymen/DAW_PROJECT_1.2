@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
 import Navbar from "scenes/navbar"
+import UpdateInformation from "scenes/widgets/UpdateInformation"
 import UserWidget from "scenes/widgets/UserWidget"
 
 const ProfilePage = () => {
@@ -36,18 +37,16 @@ const ProfilePage = () => {
         gap="2rem"
         justifyContent="center"
       >
-        <Box flexBasis={isNonMobileScreens ? "26%" : undefined}>
+        <Box flexBasis={isNonMobileScreens ? "36%" : undefined}>
           <UserWidget userId={userId} picturePath={user.picturePath} moreinfo={false} />
           <Box m="2rem 0" />
-          {/* <FriendListWidget userId={userId} /> */}
+          {/* <Widget here/> */}
         </Box>
         <Box
-          flexBasis={isNonMobileScreens ? "42%" : undefined}
+          flexBasis={isNonMobileScreens ? "59%" : undefined}
           mt={isNonMobileScreens ? undefined : "2rem"}
         >
-          {/* <MyPostWidget picturePath={user.picturePath} /> */}
-          <Box m="2rem 0" />
-          {/* <PostsWidget userId={userId} isProfile /> */}
+          <UpdateInformation />
         </Box>
       </Box>
     </Box>

@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { setPatient } from "state"
 import SearchIcon from "@mui/icons-material/Search"
 import FlexBetween from "components/FlexBetween"
+import Navbar from "scenes/navbar"
 
 const ShowPatient = () => {
   const dispatch = useDispatch()
@@ -40,52 +41,55 @@ const ShowPatient = () => {
 
   console.log(patient)
   return (
-    <WidgetWrapper
-      width={isNonMobileScreens ? '90%' : '100%'}
-      margin={'auto'}
-    >
-      <FlexBetween>
-        <Typography
-          color={palette.neutral.dark}
-          variant="h4"
-          fontWeight="500"
-          sx={{ mb: "1.5rem", textDecoration: `underline 2px ${primarymain}` }}
-        >
-          Patients List
-        </Typography>
-        <Box sx={{ display: "flex", alignItems: "center", mb: "1rem" }}>
-          <Input
-            placeholder="Search Patient..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton>
-                  <SearchIcon />
-                </IconButton>
-              </InputAdornment>
-            }
-          />
-        </Box>
-      </FlexBetween>
+    <>
+      <Navbar />
+      <WidgetWrapper
+        width={isNonMobileScreens ? '90%' : '100%'}
+        margin={'2rem auto'}
+      >
+        <FlexBetween>
+          <Typography
+            color={palette.neutral.dark}
+            variant="h4"
+            fontWeight="500"
+            sx={{ mb: "1.5rem", textDecoration: `underline 2px ${primarymain}` }}
+          >
+            Patients List
+          </Typography>
+          <Box sx={{ display: "flex", alignItems: "center", mb: "1rem" }}>
+            <Input
+              placeholder="Search Patient..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton>
+                    <SearchIcon />
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+          </Box>
+        </FlexBetween>
 
-      <Box display="flex" flexDirection="column" gap="1.5rem" mt={'1.5rem'} >
-        {filteredPatient.map((patient) => (
-          <Patient
-            key={patient._id}
-            patientId={patient._id}
-            userId={patient.user._id}
-            name={`${patient.user.firstName} ${patient.user.lastName}`}
-            subtitle={patient.user.occupation}
-            userPicturePath={patient.user.picturePath}
-            birthday={patient.user.birthday}
-            email={patient.user.email}
-            location={patient.user.location}
-            createdAt={patient.user.createdAt}
-          />
-        ))}
-      </Box>
-    </WidgetWrapper>
+        <Box display="flex" flexDirection="column" gap="1.5rem" mt={'1.5rem'} >
+          {filteredPatient.map((patient) => (
+            <Patient
+              key={patient._id}
+              patientId={patient._id}
+              userId={patient.user._id}
+              name={`${patient.user.firstName} ${patient.user.lastName}`}
+              subtitle={patient.user.occupation}
+              userPicturePath={patient.user.picturePath}
+              birthday={patient.user.birthday}
+              email={patient.user.email}
+              location={patient.user.location}
+              createdAt={patient.user.createdAt}
+            />
+          ))}
+        </Box>
+      </WidgetWrapper>
+    </>
   )
 }
 

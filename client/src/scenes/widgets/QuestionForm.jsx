@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
 import {
     Box,
     Button,
@@ -7,13 +7,14 @@ import {
     Typography,
     useMediaQuery,
     useTheme,
-} from "@mui/material";
-import { Formik, FieldArray } from "formik";
-import * as yup from "yup";
-import { useSelector } from "react-redux";
-import FlexBetween from "components/FlexBetween";
-import WidgetWrapper from "components/WidgetWrapper";
-import QuestionList from "components/QuestionList";
+} from "@mui/material"
+import { Formik, FieldArray } from "formik"
+import * as yup from "yup"
+import { useSelector } from "react-redux"
+import FlexBetween from "components/FlexBetween"
+import WidgetWrapper from "components/WidgetWrapper"
+import QuestionList from "components/QuestionList"
+import Navbar from "scenes/navbar"
 
 const questionSchema = yup.object().shape({
     question_text: yup.string().required("Question text is required"),
@@ -30,7 +31,7 @@ const questionSchema = yup.object().shape({
     order_display_in_the_questionnaire: yup
         .number()
         .required("Order display in the questionnaire is required"),
-});
+})
 
 const initialValuesQuestion = {
     question_text: "",
@@ -42,25 +43,25 @@ const initialValuesQuestion = {
         { response: "", score: 0 },
     ],
     order_display_in_the_questionnaire: 1,
-};
+}
 
 const QuestionForm = () => {
-    const [questionAdded, setQuestionAdded] = useState(false);
+    const [questionAdded, setQuestionAdded] = useState(false)
 
-    const { palette } = useTheme();
-    const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
+    const { palette } = useTheme()
+    const isNonMobileScreens = useMediaQuery("(min-width:1000px)")
     const token = useSelector((state) => state.token)
 
     const handleAddQuestion = async (values, onSubmitProps) => {
         try {
-            const { question_text, question_type, response_options, order_display_in_the_questionnaire } = values;
+            const { question_text, question_type, response_options, order_display_in_the_questionnaire } = values
 
             const dataToSend = {
                 question_text,
                 question_type,
                 response_options,
                 order_display_in_the_questionnaire,
-            };
+            }
 
             const response = await fetch("http://localhost:3001/question/add", {
                 method: "POST",
@@ -69,25 +70,27 @@ const QuestionForm = () => {
                     Authorization: `Bearer ${token}`,
                 },
                 body: JSON.stringify(dataToSend),
-            });
+            })
 
             if (response.ok) {
-                const addedQuestion = await response.json();
-                console.log("Question added successfully:", addedQuestion);
+                const addedQuestion = await response.json()
+                console.log("Question added successfully:", addedQuestion)
 
-                onSubmitProps.resetForm();
-                setQuestionAdded(true);
+                onSubmitProps.resetForm()
+                setQuestionAdded(true)
             } else {
-                const errorData = await response.json();
-                console.error("Error adding question:", errorData);
+                const errorData = await response.json()
+                console.error("Error adding question:", errorData)
             }
         } catch (error) {
-            console.error("Error adding question:", error);
+            console.error("Error adding question:", error)
         }
-    };
+    }
 
 
     return (
+        <>
+        <Navbar/>
         <Box
             display={'flex'}
             flexDirection={isNonMobileScreens ? 'row' : 'column'}
@@ -297,7 +300,8 @@ const QuestionForm = () => {
                 </Box>
             </WidgetWrapper>
         </Box>
-    );
-};
+        </>
+    )
+}
 
-export default QuestionForm;
+export default QuestionForm

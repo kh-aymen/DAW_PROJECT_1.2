@@ -75,3 +75,27 @@ export const login = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+export const UpdatePassword = async (req, res) => {
+  try {
+    const {
+      password,
+    } = req.body;
+    const { id } = req.params;
+
+    const user = await User.findOne({ _id: id });
+
+    const salt = await bcrypt.genSalt();
+    const passwordHash = await bcrypt.hash(password, salt);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    user.password = passwordHash;
+    await user.save();
+
+    res.status(201).json(user);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};

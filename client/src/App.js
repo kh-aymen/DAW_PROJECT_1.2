@@ -36,6 +36,10 @@ function App() {
           <CssBaseline />
           <Routes>
             <Route
+              path="/profile/:userId"
+              element={isAuth ? <ProfilePage /> : <Navigate to="/login" />}
+            />
+            <Route
               path="/home/patient"
               element={isAuth ? <PatientHome /> : <Navigate to="/login" />}
             />
@@ -62,10 +66,6 @@ function App() {
             <Route
               path="/home/admin/doctors"
               element={isAuth ? <ShowDoctors /> : <Navigate to="/login" />}
-            />
-            <Route
-              path="/profile/:userId"
-              element={isAuth ? <ProfilePage /> : <Navigate to="/login" />}
             />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/" element={<Home />} />

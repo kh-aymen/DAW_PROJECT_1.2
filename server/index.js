@@ -13,7 +13,8 @@ import userRoutes from "./routes/users.js"
 import qustionRoutes from "./routes/qustion.js"
 import patientRoutes from "./routes/patient.js"
 import doctorsRoutes from "./routes/doctor.js"
-import { register } from "./controllers/auth.js"
+import { UpdateImage, register } from "./controllers/auth.js"
+import { verifyToken } from "./middleware/auth.js"
 
 
 
@@ -45,6 +46,7 @@ const upload = multer({ storage })
 
 /* ROUTES WITH FILES */
 app.post("/auth/register", upload.single("picture"), register)
+app.post("/auth/UpdateImage/:id", verifyToken, upload.single("picture"), UpdateImage)
 
 
 
@@ -59,7 +61,7 @@ app.use("/doctors", doctorsRoutes)
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 6001
 mongoose
-  .connect(process.env.MONGO_URL, { 
+  .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

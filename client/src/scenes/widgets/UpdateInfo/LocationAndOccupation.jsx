@@ -29,15 +29,13 @@ const LocationAndOccupation = () => {
                 body: JSON.stringify(values),
             });
 
-            if (!response.ok) {
-                throw new Error("Update failed");
-            }
+            const Data = await response.json()
 
             // Create a new object with the updated values
             const updatedUser = {
                 ...user,
-                location: values.location,
-                occupation: values.occupation,
+                location: Data.user.location,
+                occupation: Data.user.occupation,
             };
 
             // Dispatch the action with the updated user

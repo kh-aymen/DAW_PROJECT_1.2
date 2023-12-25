@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
 import Navbar from "scenes/navbar"
+import UpdateImage from "scenes/widgets/UpdateInfo/UpdateImage"
 import UpdateInformation from "scenes/widgets/UpdateInformation"
 import UserWidget from "scenes/widgets/UserWidget"
 
@@ -40,7 +41,7 @@ const ProfilePage = () => {
         <Box flexBasis={isNonMobileScreens ? "36%" : undefined}>
           <UserWidget userId={userId} picturePath={user.picturePath} moreinfo={false} />
           <Box m="2rem 0" />
-          {/* <Widget here/> */}
+          <UpdateImage userId={userId} picturePath={user.picturePath} />
         </Box>
         <Box
           flexBasis={isNonMobileScreens ? "59%" : undefined}

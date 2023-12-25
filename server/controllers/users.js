@@ -23,7 +23,7 @@ export const updatePersonalInfoForm = async (req, res) => {
     user.lastName = lastName;
     await user.save();
 
-    res.status(200).json({ message: "Update successful", user });
+    res.status(200).json({ user });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -42,7 +42,7 @@ export const updateLocationAndOccupation = async (req, res) => {
     user.occupation = occupation;
     await user.save();
 
-    res.status(200).json({ message: "Update successful", user });
+    res.status(200).json({ user });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

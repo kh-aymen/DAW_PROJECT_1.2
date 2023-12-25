@@ -140,6 +140,9 @@ const QuizForm = () => {
             <Navbar />
             <WidgetWrapper
                 borderradius={'0px'}
+                width={'90%'}
+                margin={'auto'}
+                mt={'2.3rem'}
             >
                 <Container
                     component="main"
@@ -150,7 +153,8 @@ const QuizForm = () => {
                         alignItems: "center",
                         justifyContent: "center",
                         gap: "5rem",
-                        minHeight: "90vh",
+                        minHeight: "auto",
+
                     }}
                 >
                     {selectedType ? (
@@ -159,64 +163,69 @@ const QuizForm = () => {
                                 Loading...
                             </Typography>
                         ) : (
-                            <Paper style={{ padding: 20, width: isNonMobileScreens ? "75%" : "100%" }} elevation={3}>
-                                <Fade in={true} timeout={500}>
-                                    <form onSubmit={formik.handleSubmit}>
-                                        <FormControl component="fieldset" margin="normal" fullWidth>
-                                            <FormLabel component="legend">{currentQuestion?.question_text}</FormLabel>
-                                            <FormGroup>
-                                                {Array.isArray(currentQuestion.response_options) &&
-                                                    currentQuestion.response_options.map((option, index) => (
-                                                        <FormControlLabel
-                                                            key={index}
-                                                            control={
-                                                                currentQuestion.response_options.length > 1 ? (
-                                                                    <Checkbox color="primary" />
-                                                                ) : (
-                                                                    <Radio color="primary" />
-                                                                )
-                                                            }
-                                                            label={Array.isArray(option) ? option[0] : option.response}
-                                                            value={Array.isArray(option) ? option[0] : option.response}
-                                                            onChange={(e) =>
-                                                                formik.setFieldValue(
-                                                                    `question${currentQuestion?.id}`,
-                                                                    e.target.checked
-                                                                        ? Array.isArray(option)
-                                                                            ? option[0]
-                                                                            : option.response
-                                                                        : ""
-                                                                )
-                                                            }
-                                                            checked={
-                                                                formik.values[`question${currentQuestion?.id}`] ===
-                                                                (Array.isArray(option) ? option[0] : option.response)
-                                                            }
-                                                        />
-                                                    ))}
-                                            </FormGroup>
-                                            <FormHelperText error>
-                                                {formik.touched[`question${currentQuestion?.id}`] &&
-                                                    formik.errors[`question${currentQuestion?.id}`]}
-                                            </FormHelperText>
-                                        </FormControl>
-                                        {/* <Typography variant="body2" color="textSecondary">
-                  Number of questions in this test is{" "}
-                  {getNumberOfQuestionsOfType(selectedType)}
-                </Typography> */}
-                                        <Button
-                                            type="submit"
-                                            variant="contained"
-                                            color="primary"
-                                            fullWidth
-                                            endIcon={<ArrowForward />}
-                                            style={{ marginTop: 20 }}
-                                        >
-                                            {currentQuestionIndex === sortedQuestions.length - 1 ? "Submit" : "Next Question"}
-                                        </Button>
-                                    </form>
-                                </Fade>
-                            </Paper>
+                            <>
+                                <Typography variant="h3" color={dark} fontWeight="400">
+                                    Select Just One Reponse
+                                </Typography>
+                                <Paper style={{ padding: 20, width: isNonMobileScreens ? "75%" : "100%" }} elevation={3}>
+                                    <Fade in={true} timeout={500}>
+                                        <form onSubmit={formik.handleSubmit}>
+                                            <FormControl component="fieldset" margin="normal" fullWidth>
+                                                <FormLabel component="legend">{currentQuestion?.question_text}</FormLabel>
+                                                <FormGroup>
+                                                    {Array.isArray(currentQuestion.response_options) &&
+                                                        currentQuestion.response_options.map((option, index) => (
+                                                            <FormControlLabel
+                                                                key={index}
+                                                                control={
+                                                                    currentQuestion.response_options.length > 1 ? (
+                                                                        <Checkbox color="primary" />
+                                                                    ) : (
+                                                                        <Radio color="primary" />
+                                                                    )
+                                                                }
+                                                                label={Array.isArray(option) ? option[0] : option.response}
+                                                                value={Array.isArray(option) ? option[0] : option.response}
+                                                                onChange={(e) =>
+                                                                    formik.setFieldValue(
+                                                                        `question${currentQuestion?.id}`,
+                                                                        e.target.checked
+                                                                            ? Array.isArray(option)
+                                                                                ? option[0]
+                                                                                : option.response
+                                                                            : ""
+                                                                    )
+                                                                }
+                                                                checked={
+                                                                    formik.values[`question${currentQuestion?.id}`] ===
+                                                                    (Array.isArray(option) ? option[0] : option.response)
+                                                                }
+                                                            />
+                                                        ))}
+                                                </FormGroup>
+                                                <FormHelperText error>
+                                                    {formik.touched[`question${currentQuestion?.id}`] &&
+                                                        formik.errors[`question${currentQuestion?.id}`]}
+                                                </FormHelperText>
+                                            </FormControl>
+                                            {/* <Typography variant="body2" color="textSecondary">
+                                           Number of questions in this test is{" "}
+                                           {getNumberOfQuestionsOfType(selectedType)}
+                                         </Typography> */}
+                                            <Button
+                                                type="submit"
+                                                variant="contained"
+                                                color="primary"
+                                                fullWidth
+                                                endIcon={<ArrowForward />}
+                                                style={{ marginTop: 20 }}
+                                            >
+                                                {currentQuestionIndex === sortedQuestions.length - 1 ? "Submit" : "Next Question"}
+                                            </Button>
+                                        </form>
+                                    </Fade>
+                                </Paper>
+                            </>
                         )
                     ) : (
                         <Typography variant="h2" color={dark} fontWeight="500">

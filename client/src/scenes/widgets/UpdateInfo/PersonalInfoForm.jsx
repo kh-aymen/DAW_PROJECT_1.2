@@ -30,15 +30,13 @@ const PersonalInfoForm = () => {
                 body: JSON.stringify(values),
             })
 
-            if (!response.ok) {
-                throw new Error("Update failed")
-            }
+            const Data = await response.json()
 
             // Create a new object with the updated values
             const updatedUser = {
                 ...user,
-                firstName: values.firstName,
-                lastName: values.lastName,
+                firstName: Data.user.firstName,
+                lastName: Data.user.lastName,
             }
 
             // Dispatch the action with the updated user
@@ -97,7 +95,7 @@ const PersonalInfoForm = () => {
                             helpertext={touched.lastName && errors.lastName}
                             sx={{ gridColumn: isNonMobileScreens ? undefined : "span 2" }}
                         />
-                        <FormControl sx={{  gridColumn: isNonMobileScreens ? undefined : "span 2" }}>
+                        <FormControl sx={{ gridColumn: isNonMobileScreens ? undefined : "span 2" }}>
                             <InputLabel id="gender-label">Gender</InputLabel>
                             <Select
                                 disabled
@@ -124,7 +122,7 @@ const PersonalInfoForm = () => {
                             value={values.birthday}
                             name="birthday"
                             error={Boolean(touched.birthday) && Boolean(errors.birthday)}
-                            style={{  gridColumn: isNonMobileScreens ? undefined : "span 2" }}
+                            style={{ gridColumn: isNonMobileScreens ? undefined : "span 2" }}
                         />
                         <FormControl sx={{ gridColumn: isNonMobileScreens ? "span 2" : "span 2" }} >
                             <InputLabel id="role-label">Role</InputLabel>

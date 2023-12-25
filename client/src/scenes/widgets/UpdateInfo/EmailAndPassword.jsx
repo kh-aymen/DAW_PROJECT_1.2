@@ -35,10 +35,9 @@ const EmailAndPassword = () => {
                 },
                 body: JSON.stringify(values),
             });
-            if (!response.ok) {
-                throw new Error("Update failed");
-            }
+
             const data = await response.json()
+
             // Create a new object with the updated values
             const updatedUser = {
                 ...user,

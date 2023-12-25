@@ -1,6 +1,6 @@
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import User from "../models/User.js";
+import bcrypt from "bcrypt"
+import jwt from "jsonwebtoken"
+import User from "../models/User.js"
 import Patient from "../models/Patient.js"
 import Doctor from "../models/Doctor.js"
 import Admin from "../models/Admin.js"
@@ -19,10 +19,10 @@ export const register = async (req, res) => {
       role,
       location,
       occupation,
-    } = req.body;
+    } = req.body
 
-    const salt = await bcrypt.genSalt();
-    const passwordHash = await bcrypt.hash(password, salt);
+    const salt = await bcrypt.genSalt()
+    const passwordHash = await bcrypt.hash(password, salt)
 
     const newUser = new User({
       firstName,
@@ -35,8 +35,8 @@ export const register = async (req, res) => {
       role,
       location,
       occupation,
-    });
-    const savedUser = await newUser.save();
+    })
+    const savedUser = await newUser.save()
     const user = await User.findOne({ email: email })
     switch (role) {
       case "Patient":
@@ -52,49 +52,72 @@ export const register = async (req, res) => {
         await newAdmin.save()
         break
     }
-    res.status(201).json(savedUser);
+    res.status(201).json(savedUser)
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ error: err.message })
   }
-};
+}
 
 /* LOGGING IN */
 export const login = async (req, res) => {
   try {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email: email });
-    if (!user) return res.status(400).json({ msg: "User does not exist. " });
+    const { email, password } = req.body
+    const user = await User.findOne({ email: email })
+    if (!user) return res.status(400).json({ msg: "User does not exist. " })
 
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(400).json({ msg: "Invalid credentials. " });
+    const isMatch = await bcrypt.compare(password, user.password)
+    if (!isMatch) return res.status(400).json({ msg: "Invalid credentials. " })
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
-    delete user.password;
-    res.status(200).json({ token, user });
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET)
+    delete user.password
+    res.status(200).json({ token, user })
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ error: err.message })
   }
-};
+}
 
 export const UpdatePassword = async (req, res) => {
   try {
     const {
       password,
-    } = req.body;
+    } = req.body
+    const { id } = req.params
+
+    const user = await User.findOne({ _id: id })
+
+    const salt = await bcrypt.genSalt()
+    const passwordHash = await bcrypt.hash(password, salt)
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" })
+    }
+    user.password = passwordHash
+    await user.save()
+
+    res.status(201).json(user)
+  } catch (err) {
+    res.status(500).json({ error: err.message })
+  }
+}
+
+export const UpdateImage = async (req, res) => {
+  try {
     const { id } = req.params;
 
     const user = await User.findOne({ _id: id });
-
-    const salt = await bcrypt.genSalt();
-    const passwordHash = await bcrypt.hash(password, salt);
-
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: 'User not found' });
     }
-    user.password = passwordHash;
-    await user.save();
 
-    res.status(201).json(user);
+    // Check if there is an uploaded file
+    if (req.file) {
+      const picturePath = req.file.filename; 
+      user.picturePath = picturePath;
+      await user.save();
+      res.status(201).json({ user });
+    } else {
+      res.status(400).json({ message: 'No file uploaded' });
+    }
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

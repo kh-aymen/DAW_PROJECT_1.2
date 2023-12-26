@@ -89,7 +89,7 @@ const Doctor = ({ doctorId, userId, name, subtitle, userPicturePath, birthday, e
             {name}
           </Typography>
           <Typography color={medium} fontSize="0.75rem">
-            {subtitle}
+            {email}
           </Typography>
         </Box>
       </Box>

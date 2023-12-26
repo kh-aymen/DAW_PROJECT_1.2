@@ -28,7 +28,7 @@ const EmailAndPassword = () => {
     const handleUpdateEmailAndPassword = async (values, { resetForm }) => {
         try {
             const response = await fetch(`http://localhost:3001/auth/updateEmailAndPassword/${userId}`, {
-                method: "POST",
+                method: "POST", 
                 headers: {
                     Authorization: `Bearer ${token}`,
                     "Content-Type": "application/json",

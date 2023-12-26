@@ -33,3 +33,19 @@ export const deleteDoctor = async (req, res) => {
         res.status(404).json({ message: err.message });
     }
 }
+
+
+export const updateAccess = async (req, res) => {
+    try {
+        var { data_access_value } = req.body
+        const { id } = req.params
+        const doctor = await Doctor.findById(id)
+        doctor.data_access = !data_access_value
+        await doctor.save()
+        const result = doctor.data_access
+
+        res.status(200).json({result});
+    } catch (err) {
+        res.status(404).json({ message: err.message });
+    }
+}

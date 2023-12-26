@@ -5,6 +5,10 @@ const DoctorSchema = mongoose.Schema(
         User_id: {
             type: Object
         },
+        data_access: {
+            type: Boolean,
+            default: false,
+        },
         speciality: {
             type: String,
         },

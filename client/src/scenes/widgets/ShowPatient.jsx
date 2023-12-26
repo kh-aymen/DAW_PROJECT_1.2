@@ -15,7 +15,6 @@ const ShowPatient = () => {
   const patient = useSelector((state) => state.patient)
   const [searchTerm, setSearchTerm] = useState("")
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)")
-  const primarymain = palette.primary.main;
 
 
   const getPatient = useCallback(async () => {
@@ -52,7 +51,7 @@ const ShowPatient = () => {
             color={palette.neutral.dark}
             variant="h4"
             fontWeight="500"
-            sx={{ mb: "1.5rem", textDecoration: `underline 2px ${primarymain}` }}
+            sx={{ mb: "1.5rem" }}
           >
             Patients List
           </Typography>

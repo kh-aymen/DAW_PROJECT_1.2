@@ -53,7 +53,7 @@ app.post("/auth/UpdateImage/:id", verifyToken, upload.single("picture"), UpdateI
 /* ROUTES */
 app.use("/auth", authRoutes)
 app.use("/users", userRoutes)
-app.use("/question", qustionRoutes)
+app.use("/question", qustionRoutes) 
 app.use("/patients", patientRoutes)
 app.use("/doctors", doctorsRoutes)
 

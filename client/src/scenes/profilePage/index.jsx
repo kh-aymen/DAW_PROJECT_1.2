@@ -41,12 +41,13 @@ const ProfilePage = () => {
         <Box flexBasis={isNonMobileScreens ? "36%" : undefined}>
           <UserWidget userId={userId} picturePath={user.picturePath} moreinfo={false} />
           <Box m="2rem 0" />
-          <UpdateImage userId={userId} picturePath={user.picturePath} />
         </Box>
         <Box
           flexBasis={isNonMobileScreens ? "59%" : undefined}
           mt={isNonMobileScreens ? undefined : "2rem"}
         >
+          <UpdateImage userId={userId} picturePath={user.picturePath} />
+          <Box mt={'2rem'}/>
           <UpdateInformation />
         </Box>
       </Box>

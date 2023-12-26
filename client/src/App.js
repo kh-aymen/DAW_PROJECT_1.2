@@ -17,11 +17,11 @@ import Service from "pages/service/Service"
 import Team from "pages/team/Team"
 import Testimonial from "pages/testimonial/Testimonial"
 import './App.css'
-
 import QuizForm from "scenes/widgets/QuizWidget"
 import QuestionForm from "scenes/widgets/QuestionForm"
 import ShowPatient from "scenes/widgets/ShowPatient"
 import ShowDoctors from "scenes/widgets/ShowDoctors"
+import DoctorAccess from "scenes/widgets/DoctorAccess"
 
 
 function App() {
@@ -66,6 +66,10 @@ function App() {
             <Route
               path="/home/admin/doctors"
               element={isAuth ? <ShowDoctors /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/home/admin/access"
+              element={isAuth ? <DoctorAccess /> : <Navigate to="/login" />}
             />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/" element={<Home />} />

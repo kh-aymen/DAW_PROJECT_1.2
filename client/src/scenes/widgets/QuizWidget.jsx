@@ -22,11 +22,11 @@ import {
 } from "@mui/material"
 import { ArrowForward } from "@mui/icons-material"
 import { useDispatch, useSelector } from "react-redux"
-import { setQuiz, setQuizResult } from "state"
 import { useTheme } from "@emotion/react"
 import { useNavigate } from "react-router-dom"
 import WidgetWrapper from "components/WidgetWrapper"
 import Navbar from "scenes/navbar"
+import { setQuiz } from "state"
 
 const QuizForm = () => {
     const dispatch = useDispatch()
@@ -34,11 +34,11 @@ const QuizForm = () => {
     const token = useSelector((state) => state.token)
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
     const quiz = useSelector((state) => state.quiz)
-    const quizResult = useSelector((state) => state.quizResult)
     const isNonMobileScreens = useMediaQuery("(min-width:1000px)")
     const [resultOfQuiz, setresultOfQuiz] = useState([])
     const [selectedType, setSelectedType] = useState(null)
     const [typeCompletionStatus, setTypeCompletionStatus] = useState({})
+    
     const { palette } = useTheme()
     const mediumMain = palette.neutral.mediumMain
     const primarymain = palette.primary.main
@@ -73,7 +73,6 @@ const QuizForm = () => {
         return questions.filter((question) => question.question_type === type).length
     }
 
-
     const formik = useFormik({
         initialValues: {
             [`question${currentQuestion?.id}`]: "",
@@ -84,20 +83,22 @@ const QuizForm = () => {
         onSubmit: async (values) => {
             console.log("Form submitted:", values[`question${currentQuestion?.id}`])
             // Create an object representing the current question and its response
+            const scoreVal = currentQuestion.response_options.find(option => option.response === values[`question${currentQuestion?.id}`])?.score;
             const currentQuestionResponse = {
                 type: selectedType,
                 responses: [
                     {
                         question: currentQuestion?.question_text,
                         result: values[`question${currentQuestion?.id}`],
+                        score: scoreVal
                     },
                 ],
             }
 
             // Update resultOfQuiz
-            setresultOfQuiz([...resultOfQuiz, currentQuestionResponse])
+            setresultOfQuiz(prevResult => [...prevResult, currentQuestionResponse]);
 
-            const remainingQuestions = sortedQuestions.slice(currentQuestionIndex + 1)
+            const remainingQuestions = sortedQuestions.slice(currentQuestionIndex + 1);
             const nextQuestionOfSameTypeIndex = remainingQuestions.findIndex(
                 (q) => q.question_type === selectedType
             )
@@ -122,17 +123,16 @@ const QuizForm = () => {
 
                 if (numberOfQuestionsOfType === numberOfAnsweredQuestionsOfType) {
                     console.log("Navigating...")
-                    dispatch(setQuizResult({ quizResult: resultOfQuiz }))
-                    navigate("/home/patient/")
+                    console.log(resultOfQuiz)
+                    // navigate("/home/patient/")
                 }
             }
-
+            console.log(resultOfQuiz)
 
             formik.resetForm()
         },
+
     })
-
-
 
 
     return (
@@ -209,9 +209,9 @@ const QuizForm = () => {
                                                 </FormHelperText>
                                             </FormControl>
                                             {/* <Typography variant="body2" color="textSecondary">
-                                           Number of questions in this test is{" "}
-                                           {getNumberOfQuestionsOfType(selectedType)}
-                                         </Typography> */}
+                                                 Number of questions in this test is{" "}
+                                                 {getNumberOfQuestionsOfType(selectedType)}
+                                               </Typography> */}
                                             <Button
                                                 type="submit"
                                                 variant="contained"

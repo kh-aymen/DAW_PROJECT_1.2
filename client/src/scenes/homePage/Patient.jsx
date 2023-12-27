@@ -33,7 +33,6 @@ const HomePage = () => {
           {/* <Widget here /> */}
         </Box >
         <Box flexBasis="26%">
-          {/* <Widget here /> */}
           <TakeTest />
           <Box m="2rem 0" />
           {/* <Widget here /> */}

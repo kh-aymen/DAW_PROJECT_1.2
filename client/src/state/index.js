@@ -5,7 +5,6 @@ const initialState = {
   user: null,
   token: null,
   quiz: [],
-  quizResult: [],
   patient: [],
   doctor: [],
 }
@@ -31,9 +30,6 @@ export const authSlice = createSlice({
     setQuiz: (state, action) => {
       state.quiz = action.payload.quiz
     },
-    setQuizResult: (state, action) => {
-      state.quizResult = action.payload.quizResult
-    },
     setDoctor: (state, action) => {
       state.doctor = action.payload.doctor
     },
@@ -44,6 +40,6 @@ export const authSlice = createSlice({
   },
 })
 
-export const { setMode, setLogin, setLogout, setQuiz, setPatient, setDoctor, setQuizResult, setUser } =
+export const { setMode, setLogin, setLogout, setQuiz, setPatient, setDoctor, setUser } =
   authSlice.actions
 export default authSlice.reducer

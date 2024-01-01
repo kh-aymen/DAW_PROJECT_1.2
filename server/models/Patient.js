@@ -29,6 +29,15 @@ const PatientSchema = mongoose.Schema(
         myDoctor: {
             type: Object,
             default: {}
+        },
+        comments: {
+            type: String
+        },
+        score: {
+            type: Number
+        },
+        appointment: {
+            type: String
         }
     },
     { timestamps: true }

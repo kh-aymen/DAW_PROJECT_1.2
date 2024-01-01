@@ -2,17 +2,54 @@ import { useTheme } from '@emotion/react';
 import { Box, Button, Checkbox, TextField, Typography } from '@mui/material';
 import WidgetWrapper from 'components/WidgetWrapper';
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 
-export const AddComments = () => {
+
+export const AddComments = ({ userId }) => {
+    const token = useSelector((state) => state.token)
     const { palette } = useTheme();
     const dark = palette.neutral.dark;
 
-    const [textValue, setTextValue] = useState('');
+    const [commentsvalue, setCommentsvalue] = useState('');
     const [appointmentNeeded, setAppointmentNeeded] = useState(false);
     const [appointmentDate, setAppointmentDate] = useState('');
 
+    const MyplansAndReviewsPost = async () => {
+        try {
+            const response = await fetch(`http://localhost:3001/patients/setMyplansAndReviews/comment/${userId}`, {
+                method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ commentsvalue }),
+            });
+            const data = await response.json();
+            console.log(data);
+        } catch (error) {
+            console.error('Error posting user data:', error);
+        }
+    };
+
+    const MyplansAndReviewsPostDate = async () => {
+        try {
+            const response = await fetch(`http://localhost:3001/patients/setMyplansAndReviews/appointmentDate/${userId}`, {
+                method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ appointmentDate }),
+            });
+            const data = await response.json();
+            console.log(data);
+        } catch (error) {
+            console.error('Error posting user data:', error);
+        }
+    };
+
     const handleChange = (event) => {
-        setTextValue(event.target.value);
+        setCommentsvalue(event.target.value);
     };
 
     const handleCheckboxChange = (event) => {
@@ -25,12 +62,12 @@ export const AddComments = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(textValue);
-        setTextValue('');
+        MyplansAndReviewsPost()
+        setCommentsvalue('');
     };
     const handleSubmitDate = (event) => {
         event.preventDefault();
-        console.log(appointmentDate);
+        MyplansAndReviewsPostDate()
         setAppointmentDate('');
     };
     return (
@@ -68,7 +105,7 @@ export const AddComments = () => {
                             label="Multiline"
                             multiline
                             rows={4}
-                            value={textValue}
+                            value={commentsvalue}
                             onChange={handleChange}
                             variant="outlined"
                             fullWidth

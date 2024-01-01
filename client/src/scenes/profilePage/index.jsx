@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom"
 import Navbar from "scenes/navbar"
 import { AddComments } from "scenes/widgets/AddComments"
 import { PatientAnswers } from "scenes/widgets/PatientAnswers"
+import { SetScore } from "scenes/widgets/SetScore"
 import UpdateImage from "scenes/widgets/UpdateInfo/UpdateImage"
 import UpdateInformation from "scenes/widgets/UpdateInformation"
 import UserWidget from "scenes/widgets/UserWidget"
@@ -42,6 +43,12 @@ const ProfilePage = ({ from }) => {
         <Box flexBasis={isNonMobileScreens ? "36%" : undefined}>
           <UserWidget userId={userId} picturePath={user.picturePath} moreinfo={false} from={from} />
           <Box m="2rem 0" />
+          <Box>
+            {from === 'doctor'
+              ? <SetScore userId={userId} />
+              : ''
+            }
+          </Box>
         </Box>
         <Box
           flexBasis={isNonMobileScreens ? "59%" : undefined}
@@ -51,7 +58,7 @@ const ProfilePage = ({ from }) => {
             from === 'doctor'
               ?
               <>
-                <AddComments />
+                <AddComments userId={userId} />
                 <PatientAnswers userId={userId} from={from} />
               </>
               :

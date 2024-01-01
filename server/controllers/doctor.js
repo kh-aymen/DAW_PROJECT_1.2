@@ -1,5 +1,7 @@
+import mongoose from "mongoose";
 import Doctor from "../models/Doctor.js";
 import User from "../models/User.js";
+import Patient from "../models/Patient.js";
 
 export const getDoctor = async (req, res) => {
     try {
@@ -19,6 +21,27 @@ export const getDoctor = async (req, res) => {
         res.status(404).json({ message: err.message });
     }
 }
+
+export const getOneDoctor = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const objectId = mongoose.Types.ObjectId(id);
+
+
+        const doctor = await Doctor.findOne({ User_id: objectId });
+
+        if (!doctor) {
+            return res.status(404).json({ message: 'Doctor not found' });
+        }
+
+        res.status(200).json(doctor);
+    } catch (err) {
+        console.error('Error:', err);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+}
+
+
 
 export const deleteDoctor = async (req, res) => {
     try {
@@ -44,7 +67,43 @@ export const updateAccess = async (req, res) => {
         await doctor.save()
         const result = doctor.data_access
 
-        res.status(200).json({result});
+        res.status(200).json({ result });
+    } catch (err) {
+        res.status(404).json({ message: err.message });
+    }
+}
+
+export const addPatient = async (req, res) => {
+    try {
+        const { data } = req.body
+        const { id, doctorID } = req.params
+
+        const user = await User.findById(id)
+        if (!user) {
+            return res.status(404).json({ message: 'user not found' });
+        }
+
+        const objectId = mongoose.Types.ObjectId(doctorID);
+        const doctor = await Doctor.findOne({ User_id: objectId });
+        if (!doctor) {
+            return res.status(404).json({ message: 'doctor not found' });
+        }
+        doctor.myPatient.push(user);
+        await doctor.save()
+        res.status(200).json({ doctor });
+    } catch (err) {
+        res.status(404).json({ message: err.message });
+    }
+}
+
+export const MyPatients = async (req, res) => {
+    try {
+        const { doctorID } = req.params
+
+        const objectId = mongoose.Types.ObjectId(doctorID);
+        const doctor = await Doctor.findOne({ User_id: objectId });
+
+        res.status(200).json({ doctor });
     } catch (err) {
         res.status(404).json({ message: err.message });
     }

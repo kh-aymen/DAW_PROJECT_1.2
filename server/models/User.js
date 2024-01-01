@@ -41,6 +41,13 @@ const UserSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
+    test_Result: {
+      type: Array,
+    },
+    have_doctor: {
+      type: Boolean,
+      default: false,
+    },
     location: String,
     occupation: String,
   },

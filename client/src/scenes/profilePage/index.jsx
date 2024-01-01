@@ -3,11 +3,13 @@ import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
 import Navbar from "scenes/navbar"
+import { AddComments } from "scenes/widgets/AddComments"
+import { PatientAnswers } from "scenes/widgets/PatientAnswers"
 import UpdateImage from "scenes/widgets/UpdateInfo/UpdateImage"
 import UpdateInformation from "scenes/widgets/UpdateInformation"
 import UserWidget from "scenes/widgets/UserWidget"
 
-const ProfilePage = () => {
+const ProfilePage = ({ from }) => {
   const [user, setUser] = useState(null)
   const { userId } = useParams()
   const token = useSelector((state) => state.token)
@@ -21,7 +23,6 @@ const ProfilePage = () => {
     const data = await response.json()
     setUser(data)
   }
-
   useEffect(() => {
     getUser()
   }, [])
@@ -39,16 +40,27 @@ const ProfilePage = () => {
         justifyContent="center"
       >
         <Box flexBasis={isNonMobileScreens ? "36%" : undefined}>
-          <UserWidget userId={userId} picturePath={user.picturePath} moreinfo={false} />
+          <UserWidget userId={userId} picturePath={user.picturePath} moreinfo={false} from={from} />
           <Box m="2rem 0" />
         </Box>
         <Box
           flexBasis={isNonMobileScreens ? "59%" : undefined}
           mt={isNonMobileScreens ? undefined : "2rem"}
         >
-          <UpdateImage userId={userId} picturePath={user.picturePath} />
-          <Box mt={'2rem'}/>
-          <UpdateInformation />
+          {
+            from === 'doctor'
+              ?
+              <>
+                <AddComments />
+                <PatientAnswers userId={userId} from={from} />
+              </>
+              :
+              <>
+                <UpdateImage userId={userId} picturePath={user.picturePath} />
+                <Box mt={'2rem'} />
+                <UpdateInformation />
+              </>
+          }
         </Box>
       </Box>
     </Box>

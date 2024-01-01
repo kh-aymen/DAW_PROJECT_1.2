@@ -22,6 +22,7 @@ import QuestionForm from "scenes/widgets/QuestionForm"
 import ShowPatient from "scenes/widgets/ShowPatient"
 import ShowDoctors from "scenes/widgets/ShowDoctors"
 import DoctorAccess from "scenes/widgets/DoctorAccess"
+import { DoctorsPatinetComp } from "scenes/widgets/DoctorsPatinetComp"
 
 
 function App() {
@@ -40,6 +41,10 @@ function App() {
               element={isAuth ? <ProfilePage /> : <Navigate to="/login" />}
             />
             <Route
+              path="doctor/patietnt/data/:userId"
+              element={isAuth ? <ProfilePage from="doctor" /> : <Navigate to="/login" />}
+            />
+            <Route
               path="/home/patient"
               element={isAuth ? <PatientHome /> : <Navigate to="/login" />}
             />
@@ -54,6 +59,14 @@ function App() {
             <Route
               path="/home/doctor/addTestOrQuesiton"
               element={isAuth ? <QuestionForm /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/home/doctor/MyPatient"
+              element={isAuth ? <DoctorsPatinetComp /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/home/doctor/patients"
+              element={isAuth ? <ShowPatient from="doctor" /> : <Navigate to="/login" />}
             />
             <Route
               path="/home/admin"

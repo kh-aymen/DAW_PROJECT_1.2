@@ -15,6 +15,10 @@ const DoctorSchema = mongoose.Schema(
         scheduled_Therapy_sessions: {
             type: Number,
         },
+        myPatient: {
+            type: Array,
+            default: []
+        }
     },
     { timestamps: true }
 )

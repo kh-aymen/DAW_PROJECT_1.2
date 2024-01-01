@@ -26,7 +26,7 @@ import { useTheme } from "@emotion/react"
 import { useNavigate } from "react-router-dom"
 import WidgetWrapper from "components/WidgetWrapper"
 import Navbar from "scenes/navbar"
-import { setQuiz } from "state"
+import { setQuiz, setUser } from "state"
 
 const QuizForm = () => {
     const dispatch = useDispatch()
@@ -38,7 +38,9 @@ const QuizForm = () => {
     const [resultOfQuiz, setresultOfQuiz] = useState([])
     const [selectedType, setSelectedType] = useState(null)
     const [typeCompletionStatus, setTypeCompletionStatus] = useState({})
-    
+    const [isDone, setIsDone] = useState(false)
+    const user = useSelector((state) => state.user);
+
     const { palette } = useTheme()
     const mediumMain = palette.neutral.mediumMain
     const primarymain = palette.primary.main
@@ -73,6 +75,27 @@ const QuizForm = () => {
         return questions.filter((question) => question.question_type === type).length
     }
 
+
+    const setTestResult = async (TestResult) => {
+        const response = await fetch(`http://localhost:3001/users/addTestResulte/${user._id}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(TestResult),
+        })
+        const data = await response.json()
+        dispatch(setUser({ user: data.user }))
+    }
+    useEffect(() => {
+        if (isDone) {
+            setIsDone(false)
+            setTestResult(resultOfQuiz)
+            navigate('/home/patient')
+        }
+    }, [resultOfQuiz]);
+
     const formik = useFormik({
         initialValues: {
             [`question${currentQuestion?.id}`]: "",
@@ -81,8 +104,7 @@ const QuizForm = () => {
             [`question${currentQuestion?.id}`]: Yup.string().required("This question is required"),
         }),
         onSubmit: async (values) => {
-            console.log("Form submitted:", values[`question${currentQuestion?.id}`])
-            // Create an object representing the current question and its response
+            // console.log("Form submitted:", values[`question${currentQuestion?.id}`])
             const scoreVal = currentQuestion.response_options.find(option => option.response === values[`question${currentQuestion?.id}`])?.score;
             const currentQuestionResponse = {
                 type: selectedType,
@@ -95,8 +117,9 @@ const QuizForm = () => {
                 ],
             }
 
-            // Update resultOfQuiz
+
             setresultOfQuiz(prevResult => [...prevResult, currentQuestionResponse]);
+
 
             const remainingQuestions = sortedQuestions.slice(currentQuestionIndex + 1);
             const nextQuestionOfSameTypeIndex = remainingQuestions.findIndex(
@@ -118,22 +141,18 @@ const QuizForm = () => {
                     (response) => response.type === selectedType
                 ).length + 1 // Increment by 1
 
-                console.log("Number of Questions of Type:", numberOfQuestionsOfType)
-                console.log("Number of Answered Questions of Type:", numberOfAnsweredQuestionsOfType)
+                // console.log("Number of Questions of Type:", numberOfQuestionsOfType)
+                // console.log("Number of Answered Questions of Type:", numberOfAnsweredQuestionsOfType)
 
                 if (numberOfQuestionsOfType === numberOfAnsweredQuestionsOfType) {
-                    console.log("Navigating...")
-                    console.log(resultOfQuiz)
-                    // navigate("/home/patient/")
+                    setIsDone(true)
                 }
             }
-            console.log(resultOfQuiz)
 
             formik.resetForm()
         },
 
     })
-
 
     return (
         <>

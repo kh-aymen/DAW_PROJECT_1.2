@@ -4,15 +4,17 @@ import {
   LocationOnOutlined,
   WorkOutlineOutlined,
 } from "@mui/icons-material"
-import { Box, Typography, Divider, useTheme } from "@mui/material"
+import { Box, Typography, Divider, useTheme, Button } from "@mui/material"
 import UserImage from "components/UserImage"
 import FlexBetween from "components/FlexBetween"
 import WidgetWrapper from "components/WidgetWrapper"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { setUser } from "state"
 
-const UserWidget = ({ userId, picturePath, moreinfo }) => {
+const UserWidget = ({ userId, picturePath, moreinfo, from }) => {
+  const dispatch = useDispatch()
   const [user, setUser] = useState(null)
   const { palette } = useTheme()
   const navigate = useNavigate()
@@ -29,10 +31,17 @@ const UserWidget = ({ userId, picturePath, moreinfo }) => {
     const data = await response.json()
     setUser(data)
   }
-
+  const handleRestAllTests = async () => {
+    const response = await fetch(`http://localhost:3001/users/restResulte/${userId}`, {
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    const data = await response.json()
+    dispatch(setUser({ user: data.user }))
+  }
   useEffect(() => {
     getUser()
-  }, []) 
+  }, [handleRestAllTests])
 
   if (!user) {
     return null
@@ -46,9 +55,18 @@ const UserWidget = ({ userId, picturePath, moreinfo }) => {
     birthday,
     role,
     email,
+    test_Result
   } = user
 
+
   const formattedBirthday = new Date(birthday).toLocaleDateString()
+  var numberOfAllTestResponded = test_Result ? test_Result.length : 0;
+
+  const AllTypesOfTest = test_Result ? [...new Set(test_Result.flat().map(item => item.type))] : [];
+  const typeCounts = AllTypesOfTest.map(type => ({
+    type,
+    count: test_Result ? test_Result.filter(arr => arr.some(item => item.type === type)).length : 0
+  }))
 
   return (
     <WidgetWrapper>
@@ -56,7 +74,9 @@ const UserWidget = ({ userId, picturePath, moreinfo }) => {
       <FlexBetween
         gap="0.5rem"
         pb="1.1rem"
-        onClick={() => navigate(`/profile/${userId}`)}
+        onClick={() =>
+          from === 'doctor' ? undefined : navigate(`/profile/${userId}`)
+        }
         sx={{
           "&:hover": {
             cursor: "pointer",
@@ -87,7 +107,7 @@ const UserWidget = ({ userId, picturePath, moreinfo }) => {
             </Typography>
           </Box>
         </FlexBetween>
-        <ManageAccountsOutlined />
+        {from === 'doctor' ? '' : <ManageAccountsOutlined />}
       </FlexBetween>
 
       <Divider />
@@ -113,7 +133,55 @@ const UserWidget = ({ userId, picturePath, moreinfo }) => {
           </Typography>
         </FlexBetween>
         {moreinfo === false
-          ? <>ggggggggggggggg</>
+          ?
+          (
+            (() => {
+              switch (role) {
+                case 'Patient':
+                  return (
+                    <>
+                      <FlexBetween mb="0.5rem">
+                        <Typography color={medium}>Number Of All Tests Passed: </Typography>
+                        <Typography color={main} fontWeight="500">
+                          {numberOfAllTestResponded}
+                        </Typography>
+                      </FlexBetween>
+                      {
+                        typeCounts.map((item, key) => {
+                          return (
+                            <FlexBetween mb="0.5rem" key={key}>
+                              <Typography color={medium}>-{item.type}: </Typography>
+                              <Typography color={main} fontWeight="500">
+                                {item.count}
+                              </Typography>
+                            </FlexBetween>
+                          )
+                        })
+                      }
+                      {from === 'doctor'
+                        ? <></>
+                        :
+                        numberOfAllTestResponded === 0
+                          ? <Button variant="outlined" onClick={handleRestAllTests} disabled>Rest All Tests</Button>
+                          : <Button variant="outlined" onClick={handleRestAllTests} >Rest All Tests</Button>
+                      }
+                    </>
+                  );
+                case 'Doctor':
+                  return (
+                    <div>
+                      ... (doctor content)
+                    </div>
+                  );
+                case 'Admin':
+                  return (
+                    <div>
+                      ... (admin content)
+                    </div>
+                  );
+
+              }
+            })())
           : <Box
             mb="0.5rem"
             display={'flex'}
@@ -166,7 +234,7 @@ const UserWidget = ({ userId, picturePath, moreinfo }) => {
               <Typography color={medium}>Social Network</Typography>
             </Box>
           </FlexBetween>
-          <EditOutlined sx={{ color: main }} />
+          {from === 'doctor' ? '' : <EditOutlined sx={{ color: main }} />}
         </FlexBetween>
 
         <FlexBetween gap="1rem">
@@ -179,7 +247,7 @@ const UserWidget = ({ userId, picturePath, moreinfo }) => {
               <Typography color={medium}>Network Platform</Typography>
             </Box>
           </FlexBetween>
-          <EditOutlined sx={{ color: main }} />
+          {from === 'doctor' ? '' : <EditOutlined sx={{ color: main }} />}
         </FlexBetween>
       </Box>
     </WidgetWrapper>

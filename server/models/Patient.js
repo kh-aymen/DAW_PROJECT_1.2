@@ -25,6 +25,10 @@ const PatientSchema = mongoose.Schema(
         },
         depression_score: {
             type: Number,
+        },
+        myDoctor: {
+            type: Object,
+            default: {}
         }
     },
     { timestamps: true }

@@ -146,7 +146,7 @@ export const PatientAnswers = ({ userId, from }) => {
                                                             id={`${type}-${version}-header`}
                                                         >
                                                             <Typography variant="h6" color={dark} fontWeight="400">
-                                                                {version ? `Version ${version}` : 'No Version'}
+                                                                {version ? `Version ${version}` : 'version'}
                                                             </Typography>
                                                         </AccordionSummary>
                                                         <AccordionDetails>

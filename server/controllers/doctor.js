@@ -75,7 +75,6 @@ export const updateAccess = async (req, res) => {
 
 export const addPatient = async (req, res) => {
     try {
-        const { data } = req.body
         const { id, doctorID } = req.params
 
         const user = await User.findById(id)

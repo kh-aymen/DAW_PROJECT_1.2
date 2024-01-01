@@ -24,8 +24,8 @@ const ProfilePage = ({ from }) => {
     setUser(data)
   }
   useEffect(() => {
-    getUser()
-  }, [])
+    getUser();
+  }, [userId, token]);
 
   if (!user) return null
 

@@ -33,11 +33,19 @@ const PatientData = ({ patientId, userId, name, subtitle, userPicturePath, birth
             },
             body: JSON.stringify(data),
         })
+        const data2 = await response2.json()
 
-        const Data = await response2.json()
-        console.log(Data)
+        const response3 = await fetch(`http://localhost:3001/patients/addDoctor/${userId}`, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(userFromRedux),
+        })
+        const data3 = await response3.json()
+
     }
-
     const handlePatientClick = async () => {
         await getUserAndsetDactorsPatient()
         navigate(`/doctor/patietnt/data/${userId}`)

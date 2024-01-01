@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import Navbar from "scenes/navbar";
 import UserWidget from "scenes/widgets/UserWidget";
 import { TakeTest } from "scenes/widgets/TakeTest";
+import { MyDoctor } from "scenes/widgets/MyDoctor";
 
 const HomePage = () => {
 
@@ -35,7 +36,7 @@ const HomePage = () => {
         <Box flexBasis="26%">
           <TakeTest />
           <Box m="2rem 0" />
-          {/* <Widget here /> */}
+          <MyDoctor/>
         </Box>
       </Box >
     </Box >

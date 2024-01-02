@@ -23,6 +23,8 @@ import { useDispatch } from "react-redux"
 import { setLogin } from "state"
 import Dropzone from "react-dropzone"
 import FlexBetween from "components/FlexBetween"
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const registerSchema = yup.object().shape({
   firstName: yup.string().required("required"),
@@ -91,6 +93,9 @@ const Form = () => {
     if (savedUser) {
       setPageType("login")
     }
+    toast.success("Account successfully created", {
+      position: toast.POSITION.TOP_LEFT,
+    })
   }
 
   const login = async (values, onSubmitProps) => {
@@ -101,7 +106,7 @@ const Form = () => {
     })
     const loggedIn = await loggedInResponse.json()
     onSubmitProps.resetForm()
-    if (loggedIn) {  
+    if (loggedIn) {
       dispatch(
         setLogin({
           user: loggedIn.user,

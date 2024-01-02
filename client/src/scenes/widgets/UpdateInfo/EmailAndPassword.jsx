@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "state";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const emailAndPasswordSchema = yup.object().shape({
     email: yup.string().email("Invalid email").required("Required"),
@@ -28,7 +30,7 @@ const EmailAndPassword = () => {
     const handleUpdateEmailAndPassword = async (values, { resetForm }) => {
         try {
             const response = await fetch(`http://localhost:3001/auth/updateEmailAndPassword/${userId}`, {
-                method: "POST", 
+                method: "POST",
                 headers: {
                     Authorization: `Bearer ${token}`,
                     "Content-Type": "application/json",
@@ -48,7 +50,9 @@ const EmailAndPassword = () => {
             // Dispatch the action with the updated user
             dispatch(setUser({ user: updatedUser }));
             resetForm();
-            window.location.reload();
+            toast.success("The Password changed successfully", {
+                position: toast.POSITION.TOP_LEFT,
+            })
         } catch (error) {
             console.error("Update failed", error);
         }

@@ -34,7 +34,7 @@ export const ShowAllPatientToDoctor = ({ access }) => {
                         <Button variant="outlined"
                             onClick={() => navigate("/home/doctor/patients")}
                         >Here</Button>
-                        :<Button  variant="outlined" disabled>Don't Have access</Button>
+                        : <Button variant="outlined" disabled>Don't Have access</Button>
                 }
             </FlexBetween>
         </WidgetWrapper>

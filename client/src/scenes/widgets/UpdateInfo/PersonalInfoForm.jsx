@@ -5,6 +5,8 @@ import { Formik } from "formik"
 import * as yup from "yup"
 import { useDispatch, useSelector } from "react-redux"
 import { setUser } from "state"
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const personalInfoSchema = yup.object().shape({
     firstName: yup.string().required("First Name is required"),
@@ -38,11 +40,16 @@ const PersonalInfoForm = () => {
                 firstName: Data.user.firstName,
                 lastName: Data.user.lastName,
             }
-
             // Dispatch the action with the updated user
             dispatch(setUser({ user: updatedUser }))
             resetForm()
-            window.location.reload()
+            toast.success("The name changed successfully", {
+                position: toast.POSITION.TOP_LEFT,
+            })
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000);
+
         } catch (error) {
             console.error("Update failed", error)
         }

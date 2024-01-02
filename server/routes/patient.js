@@ -7,7 +7,8 @@ import {
     getMyplansAndReviews,
     setMyplansAndReviews,
     setMyplansAndReviewsComment,
-    setMyplansAndReviewsappointmentDate
+    setMyplansAndReviewsappointmentDate,
+    getResult
 } from "../controllers/patient.js"
 
 import { verifyToken } from "../middleware/auth.js"
@@ -24,6 +25,7 @@ router.get('/getMyplansAndReviews/:id', verifyToken, getMyplansAndReviews)
 router.post('/setMyplansAndReviews/:id', verifyToken, setMyplansAndReviews)
 router.post('/setMyplansAndReviews/comment/:id', verifyToken, setMyplansAndReviewsComment)
 router.post('/setMyplansAndReviews/appointmentDate/:id', verifyToken, setMyplansAndReviewsappointmentDate)
+router.get('/getResult/:id', verifyToken, getResult)
 
 
 export default router

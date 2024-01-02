@@ -32,28 +32,32 @@ export const MyDoctor = () => {
             console.error("Error fetching data:", error);
         }
     };
-    console.log(MyDoctor)
+
     useEffect(() => {
         getMydoctor()
     }, [user])
 
-    function calculateAge(birthdate) {
-        const birthdateObj = new Date(birthdate);
-        const currentDate = new Date();
+    if (user.have_doctor) {
+        function calculateAge(birthdate) {
+            const birthdateObj = new Date(birthdate);
+            const currentDate = new Date();
 
-        let age = currentDate.getFullYear() - birthdateObj.getFullYear();
-        if (
-            currentDate.getMonth() < birthdateObj.getMonth() ||
-            (currentDate.getMonth() === birthdateObj.getMonth() &&
-                currentDate.getDate() < birthdateObj.getDate())
-        ) {
-            age--;
+            let age = currentDate.getFullYear() - birthdateObj.getFullYear();
+            if (
+                currentDate.getMonth() < birthdateObj.getMonth() ||
+                (currentDate.getMonth() === birthdateObj.getMonth() &&
+                    currentDate.getDate() < birthdateObj.getDate())
+            ) {
+                age--;
+            }
+
+            return age;
         }
+        var Age = calculateAge(MyDoctor.birthday);
 
-        return age;
     }
 
-    var Age = calculateAge(MyDoctor.birthday);
+
     return (
         <WidgetWrapper
             p="1rem"
@@ -69,7 +73,7 @@ export const MyDoctor = () => {
                     variant="h5"
                     fontWeight="500"
                 >
-                    See My Doctor
+                    My Doctor
                 </Typography>
                 <Typography
                     color={palette.neutral.main}
@@ -152,6 +156,7 @@ export const MyDoctor = () => {
                             >
                                 <strong>Occupation:  </strong>{MyDoctor.occupation}
                             </Typography>
+                            <Button variant="outlined">Chat With The Doctor</Button>
                         </>
                         : <>
                             <Typography
@@ -159,8 +164,7 @@ export const MyDoctor = () => {
                                 variant="h6"
                                 fontWeight="300"
                             >
-                                You Still Don't Have a Doctor
-                                <strong> Just Wait</strong>
+                                You Still Don't Have a Doctor Take A Test And Wait
                             </Typography>
                         </>
                 }

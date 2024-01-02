@@ -3,6 +3,8 @@ import { useTheme } from '@emotion/react';
 import { Box, Typography, Slider, Button } from '@mui/material';
 import WidgetWrapper from 'components/WidgetWrapper';
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export const SetScore = ({ userId }) => {
     const { palette } = useTheme();
@@ -42,7 +44,6 @@ export const SetScore = ({ userId }) => {
                 body: JSON.stringify({ scorevalue }),
             });
             const data = await response.json();
-            console.log(data);
         } catch (error) {
             console.error('Error posting user data:', error);
         }
@@ -55,8 +56,12 @@ export const SetScore = ({ userId }) => {
     };
 
     const handleSubmit = () => {
-
         MyplansAndReviewsPost();
+        setscorevalue(0)
+        toast.success("Score Added successfully", {
+            position: toast.POSITION.TOP_LEFT,
+        })
+
     };
 
     return (

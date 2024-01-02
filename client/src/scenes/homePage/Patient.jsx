@@ -4,10 +4,11 @@ import Navbar from "scenes/navbar";
 import UserWidget from "scenes/widgets/UserWidget";
 import { TakeTest } from "scenes/widgets/TakeTest";
 import { MyDoctor } from "scenes/widgets/MyDoctor";
+import { SeeMyCommets } from "scenes/widgets/SeeMyCommets";
 
 const HomePage = () => {
 
-  const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
+  const isNonMobileScreens = useMediaQuery("(min-width:1200px)");
   const { _id, picturePath } = useSelector((state) => state.user);
 
 
@@ -29,7 +30,7 @@ const HomePage = () => {
           flexBasis={isNonMobileScreens ? "42%" : undefined}
           mt={isNonMobileScreens ? undefined : "2rem"}
         >
-          {/* <Widget here /> */}
+         <SeeMyCommets userId={_id}/>
 
           {/* <Widget here /> */}
         </Box >

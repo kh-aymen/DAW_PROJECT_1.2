@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Patient from "../models/Patient.js";
 import User from "../models/User.js";
 
@@ -91,7 +92,6 @@ export const getMyplansAndReviews = async (req, res) => {
 export const setMyplansAndReviews = async (req, res) => {
     try {
         const { scorevalue } = req.body
-        console.log(scorevalue)
         const { id } = req.params
         const user = await User.findById(id)
 
@@ -110,7 +110,6 @@ export const setMyplansAndReviews = async (req, res) => {
 export const setMyplansAndReviewsComment = async (req, res) => {
     try {
         const { commentsvalue } = req.body
-        console.log(commentsvalue)
         const { id } = req.params
         const user = await User.findById(id)
 
@@ -141,6 +140,18 @@ export const setMyplansAndReviewsappointmentDate = async (req, res) => {
         patient.save()
         const data = patient.appointment
         res.status(200).json({ data });
+    } catch (err) {
+        res.status(404).json({ message: err.message });
+    }
+}
+
+export const getResult = async (req, res) => {
+    try {
+        const { id } = req.params
+        const objectId = mongoose.Types.ObjectId(id);
+
+        const patient = await Patient.findOne({ User_id: objectId })
+        res.status(200).json({patient});
     } catch (err) {
         res.status(404).json({ message: err.message });
     }

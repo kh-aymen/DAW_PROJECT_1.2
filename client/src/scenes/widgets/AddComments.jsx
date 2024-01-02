@@ -1,18 +1,21 @@
-import { useTheme } from '@emotion/react';
-import { Box, Button, Checkbox, TextField, Typography } from '@mui/material';
-import WidgetWrapper from 'components/WidgetWrapper';
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useTheme } from '@emotion/react'
+import { Box, Button, Checkbox, TextField, Typography } from '@mui/material'
+import WidgetWrapper from 'components/WidgetWrapper'
+import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
 
 
 export const AddComments = ({ userId }) => {
     const token = useSelector((state) => state.token)
-    const { palette } = useTheme();
-    const dark = palette.neutral.dark;
+    const { palette } = useTheme()
+    const dark = palette.neutral.dark
 
-    const [commentsvalue, setCommentsvalue] = useState('');
-    const [appointmentNeeded, setAppointmentNeeded] = useState(false);
-    const [appointmentDate, setAppointmentDate] = useState('');
+    const [commentsvalue, setCommentsvalue] = useState('')
+    const [appointmentNeeded, setAppointmentNeeded] = useState(false)
+    const [appointmentDate, setAppointmentDate] = useState('')
 
     const MyplansAndReviewsPost = async () => {
         try {
@@ -23,13 +26,12 @@ export const AddComments = ({ userId }) => {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({ commentsvalue }),
-            });
-            const data = await response.json();
-            console.log(data);
+            })
+            const data = await response.json()
         } catch (error) {
-            console.error('Error posting user data:', error);
+            console.error('Error posting user data:', error)
         }
-    };
+    }
 
     const MyplansAndReviewsPostDate = async () => {
         try {
@@ -40,36 +42,41 @@ export const AddComments = ({ userId }) => {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({ appointmentDate }),
-            });
-            const data = await response.json();
-            console.log(data);
+            })
+            const data = await response.json()
         } catch (error) {
-            console.error('Error posting user data:', error);
+            console.error('Error posting user data:', error)
         }
-    };
+    }
 
     const handleChange = (event) => {
-        setCommentsvalue(event.target.value);
-    };
+        setCommentsvalue(event.target.value)
+    }
 
     const handleCheckboxChange = (event) => {
-        setAppointmentNeeded(event.target.checked);
-    };
+        setAppointmentNeeded(event.target.checked)
+    }
 
     const handleDateChange = (event) => {
-        setAppointmentDate(event.target.value);
-    };
+        setAppointmentDate(event.target.value)
+    }
 
     const handleSubmit = (event) => {
-        event.preventDefault();
+        event.preventDefault()
         MyplansAndReviewsPost()
-        setCommentsvalue('');
-    };
+        setCommentsvalue('')
+        toast.success("Comment Added In successfully", {
+            position: toast.POSITION.TOP_LEFT,
+        })
+    }
     const handleSubmitDate = (event) => {
-        event.preventDefault();
+        event.preventDefault()
         MyplansAndReviewsPostDate()
-        setAppointmentDate('');
-    };
+        setAppointmentDate('')
+        toast.success("Appointment Date Added successfully", {
+            position: toast.POSITION.TOP_LEFT,
+        })
+    }
     return (
         <WidgetWrapper mb={'2rem'}>
             <Box>
@@ -162,5 +169,5 @@ export const AddComments = ({ userId }) => {
                 </Box>
             </Box>
         </WidgetWrapper>
-    );
-};
+    )
+}

@@ -5,6 +5,8 @@ import { setPatient } from "state"
 import FlexBetween from "./FlexBetween"
 import UserImage from "./UserImage"
 import { useState } from "react"
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const Patient = ({ patientId, userId, name, subtitle, userPicturePath, birthday, email, location, createdAt }) => {
     const dispatch = useDispatch()
@@ -43,6 +45,9 @@ const Patient = ({ patientId, userId, name, subtitle, userPicturePath, birthday,
         getPatient()
         updatePatientState()
         handleCloseDialog()
+        toast.success("The patient has been successfully deleted", {
+            position: toast.POSITION.TOP_LEFT,
+        });
     }
     const updatePatientState = () => {
         const updatedPatient = patient.filter((patientItem) => patientItem.user._id !== userId)

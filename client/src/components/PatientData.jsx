@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux"
 import FlexBetween from "./FlexBetween"
 import UserImage from "./UserImage"
 import { useNavigate } from "react-router-dom"
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const PatientData = ({ patientId, userId, name, subtitle, userPicturePath, birthday, email, location, createdAt, have_doctor }) => {
     const dispatch = useDispatch()
@@ -48,6 +50,9 @@ const PatientData = ({ patientId, userId, name, subtitle, userPicturePath, birth
     }
     const handlePatientClick = async () => {
         await getUserAndsetDactorsPatient()
+        toast.success("Patient Added To you successfully", {
+            position: toast.POSITION.TOP_LEFT,
+        })
         navigate(`/doctor/patietnt/data/${userId}`)
         navigate(0)
     };

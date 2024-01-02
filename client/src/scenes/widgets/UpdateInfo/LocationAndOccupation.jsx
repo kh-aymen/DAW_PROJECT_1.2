@@ -4,6 +4,8 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "state";
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const locationAndOccupationSchema = yup.object().shape({
     location: yup.string().required("required"),
@@ -41,7 +43,12 @@ const LocationAndOccupation = () => {
             // Dispatch the action with the updated user
             dispatch(setUser({ user: updatedUser }));
             resetForm();
-            window.location.reload();
+            toast.success("The location and occupation changed successfully", {
+                position: toast.POSITION.TOP_LEFT,
+            })
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000);
         } catch (error) {
             console.error("Update failed", error);
         }

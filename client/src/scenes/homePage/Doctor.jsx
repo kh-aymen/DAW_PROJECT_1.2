@@ -50,7 +50,7 @@ const HomePage = () => {
         </Box>
         <Box flexBasis="26%">
           {/* <AdvertWidget /> */}
-          <AddDeleteQuestion />
+          <AddDeleteQuestion  access={access}/>
           <Box m="2rem 0" />
           <ShowAllPatientToDoctor access={access} />
           {/* <Widget here /> */}

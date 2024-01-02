@@ -16,6 +16,8 @@ import { useSelector } from "react-redux";
 import { DeleteOutlineOutlined } from "@mui/icons-material";
 import { useTheme } from "@emotion/react";
 import FlexBetween from "./FlexBetween";
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const QuestionList = () => {
     const [questions, setQuestions] = useState([]);
@@ -68,8 +70,14 @@ const QuestionList = () => {
             } else {
                 console.error(`Failed to delete all questions of type ${questionType}`);
             }
+            toast.success(`All questions of type ${questionType} deleted successfully.`, {
+                position: toast.POSITION.TOP_LEFT,
+            })
         } catch (error) {
             console.error("Error deleting all questions:", error);
+            toast.error(`Error deleting all questions ${questionType} `, {
+                position: toast.POSITION.TOP_LEFT,
+            })
         }
         handleCloseDialog();
     };
@@ -86,8 +94,14 @@ const QuestionList = () => {
             } else {
                 console.error(`Failed to delete question with ID ${questionId}`);
             }
+            toast.success(`Question with ID ${questionId} deleted successfully.`, {
+                position: toast.POSITION.TOP_LEFT,
+            })
         } catch (error) {
             console.error("Error deleting question:", error);
+            toast.error(`Error deleting question ${questionId} `, {
+                position: toast.POSITION.TOP_LEFT,
+            })
         }
         handleCloseDialog();
     };

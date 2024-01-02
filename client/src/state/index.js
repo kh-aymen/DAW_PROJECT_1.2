@@ -1,4 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const initialState = {
   mode: "light",
@@ -19,6 +21,9 @@ export const authSlice = createSlice({
     setLogin: (state, action) => {
       state.user = action.payload.user
       state.token = action.payload.token
+      toast.success("Loged In successfully", {
+        position: toast.POSITION.TOP_LEFT,
+      })
     },
     setUser: (state, action) => {
       state.user = action.payload.user
@@ -26,6 +31,9 @@ export const authSlice = createSlice({
     setLogout: (state) => {
       state.user = null
       state.token = null
+      toast.success("Loged Out successfully", {
+        position: toast.POSITION.TOP_LEFT,
+      })
     },
     setQuiz: (state, action) => {
       state.quiz = action.payload.quiz

@@ -8,6 +8,8 @@ import FlexBetween from "components/FlexBetween"
 import { useDispatch, useSelector } from "react-redux"
 import { setUser } from "state"
 import WidgetWrapper from "components/WidgetWrapper"
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const imageSchema = yup.object().shape({
     picture: yup.mixed().required("Please select an image"),
@@ -44,7 +46,12 @@ const UpdateImage = ({ userId, picturePath }) => {
             }
 
             dispatch(setUser({ user: updatedUser }))
-            window.location.reload()
+            toast.success("The Image changed successfully", {
+                position: toast.POSITION.TOP_LEFT,
+            })
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000);
 
         } catch (error) {
             console.error("Error updating image:", error)

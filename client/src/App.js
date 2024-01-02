@@ -23,6 +23,8 @@ import ShowPatient from "scenes/widgets/ShowPatient"
 import ShowDoctors from "scenes/widgets/ShowDoctors"
 import DoctorAccess from "scenes/widgets/DoctorAccess"
 import { DoctorsPatinetComp } from "scenes/widgets/DoctorsPatinetComp"
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 
 function App() {
@@ -95,6 +97,7 @@ function App() {
           </Routes>
         </ThemeProvider>
       </BrowserRouter>
+      <ToastContainer />
     </div>
   )
 }

@@ -5,11 +5,11 @@ import FlexBetween from "components/FlexBetween"
 import { useNavigate } from "react-router-dom"
 
 
-export const AddDeleteQuestion = () => {
+export const AddDeleteQuestion = ({ access }) => {
 
-  const navigate = useNavigate()
+    const navigate = useNavigate()
 
-  const { palette } = useTheme()
+    const { palette } = useTheme()
     return (
         <WidgetWrapper>
             <FlexBetween>
@@ -29,9 +29,13 @@ export const AddDeleteQuestion = () => {
                         You can Add or Delete Test or Question
                     </Typography>
                 </Box>
-                <Button variant="outlined"
-                    onClick={() => navigate("/home/doctor/addTestOrQuesiton")}
-                >Here</Button>
+                {
+                    access ?
+                        <Button variant="outlined"
+                            onClick={() => navigate("/home/doctor/addTestOrQuesiton")}
+                        >Here</Button>
+                        : <Button variant="outlined" disabled>Don't Have access</Button>
+                }
             </FlexBetween>
         </WidgetWrapper>
     )

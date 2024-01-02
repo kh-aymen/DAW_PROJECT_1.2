@@ -3,12 +3,14 @@ import {
     Box,
     Typography,
     useTheme,
-    Switch, 
+    Switch,
 } from "@mui/material"
 import { useDispatch, useSelector } from "react-redux"
 import { setDoctor } from "state"
 import FlexBetween from "./FlexBetween"
 import UserImage from "./UserImage"
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const DoctorAccess = ({
     doctorId,
@@ -19,7 +21,7 @@ const DoctorAccess = ({
 }) => {
     const dispatch = useDispatch()
     const token = useSelector((state) => state.token)
-    const [switchValue, setSwitchValue] = useState(access) 
+    const [switchValue, setSwitchValue] = useState(access)
     const doctor = useSelector((state) => state.doctor)
 
     const { palette } = useTheme()
@@ -69,7 +71,13 @@ const DoctorAccess = ({
     const handleSwitchChange = () => {
         setSwitchValue(!switchValue)
         handleAccessValue()
-
+        !switchValue
+            ? toast.success(`Access allowed for "${name}"`, {
+                position: toast.POSITION.TOP_LEFT,
+            })
+            : toast.error(`Access is forbidden for ${name}`, {
+                position: toast.POSITION.TOP_LEFT,
+            })
     }
 
     return (

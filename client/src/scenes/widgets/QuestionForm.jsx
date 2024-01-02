@@ -11,10 +11,11 @@ import {
 import { Formik, FieldArray } from "formik"
 import * as yup from "yup"
 import { useSelector } from "react-redux"
-import FlexBetween from "components/FlexBetween"
 import WidgetWrapper from "components/WidgetWrapper"
 import QuestionList from "components/QuestionList"
 import Navbar from "scenes/navbar"
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const questionSchema = yup.object().shape({
     question_text: yup.string().required("Question text is required"),
@@ -78,6 +79,10 @@ const QuestionForm = () => {
 
                 onSubmitProps.resetForm()
                 setQuestionAdded(true)
+                toast.success("Question Added successfully", {
+                    position: toast.POSITION.TOP_LEFT,
+                })
+
             } else {
                 const errorData = await response.json()
                 console.error("Error adding question:", errorData)
@@ -90,216 +95,216 @@ const QuestionForm = () => {
 
     return (
         <>
-        <Navbar/>
-        <Box
-            display={'flex'}
-            flexDirection={isNonMobileScreens ? 'row' : 'column'}
-            justifyContent={'space-around'}
-            alignItems={'flex-start'}
-            minHeight={'100vh'}
-            width={'100%'}
-            gap={'2rem'}
-            padding={'2rem 1.5rem'}
-        >
-            <WidgetWrapper
+            <Navbar />
+            <Box
                 display={'flex'}
-                flexDirection={'column'}
+                flexDirection={isNonMobileScreens ? 'row' : 'column'}
+                justifyContent={'space-around'}
                 alignItems={'flex-start'}
-                justifyContent={'flex-start'}
+                minHeight={'100vh'}
+                width={'100%'}
                 gap={'2rem'}
-                width={isNonMobileScreens ? undefined : '100%'}
-
+                padding={'2rem 1.5rem'}
             >
-                <Typography
-                    color={palette.neutral.dark}
-                    variant="h5"
-                    fontWeight="500"
-                >
-                    Add a Test and his Question
-                </Typography>
-                <Formik
-                    onSubmit={handleAddQuestion}
-                    initialValues={initialValuesQuestion}
-                    validationSchema={questionSchema}
-                >
-                    {({
-                        values,
-                        errors,
-                        touched,
-                        handleBlur,
-                        handleChange,
-                        handleSubmit,
-                        setFieldValue,
-                        resetForm,
-                    }) => (
-                        <form onSubmit={handleSubmit}
-                            style={{ width: isNonMobileScreens ? 'auto' : '100%' }}
-                        >
-
-                            <Box
-                                display="grid"
-                                gap="30px"
-                                gridTemplateColumns="repeat(1, minmax(0, 1fr))"
-                                sx={{
-                                    "& > div": { gridColumn: isNonMobileScreens ? undefined : "span 1" },
-                                }}
-                                width={isNonMobileScreens ? undefined : '100%'}
-
-                            >
-                                <TextField
-                                    label="Question Type"
-                                    onBlur={handleBlur}
-                                    onChange={handleChange}
-                                    value={values.question_type}
-                                    name="question_type"
-                                    error={
-                                        Boolean(touched.question_type) && Boolean(errors.question_type)
-                                    }
-                                    helperText={touched.question_type && errors.question_type}
-                                    sx={{ gridColumn: "span 1" }}
-                                />
-                                <TextField
-                                    label="Question Text"
-                                    onBlur={handleBlur}
-                                    onChange={handleChange}
-                                    value={values.question_text}
-                                    name="question_text"
-                                    error={
-                                        Boolean(touched.question_text) && Boolean(errors.question_text)
-                                    }
-                                    helperText={touched.question_text && errors.question_text}
-                                    sx={{ gridColumn: "span 1" }}
-                                />
-                                <FieldArray name="response_options">
-                                    {({ push, remove }) => (
-                                        <Box
-                                            display={'flex'}
-                                            flexDirection={'column'}
-                                            gap={'.8rem'}
-                                        >
-                                            {values.response_options.map((option, index) => (
-                                                <Box key={index}
-                                                    width={'100%'}
-                                                    display={'flex'}
-                                                    justifyContent={'space-between'}
-                                                    alignItems={'center'}
-                                                    gap={'.8rem'}
-                                                >
-                                                    <TextField
-                                                        label={`Response ${index + 1}`}
-                                                        onBlur={handleBlur}
-                                                        onChange={handleChange}
-                                                        value={option.response}
-                                                        name={`response_options[${index}].response`}
-                                                        error={
-                                                            Boolean(
-                                                                touched.response_options?.[index]?.response
-                                                            ) &&
-                                                            Boolean(errors.response_options?.[index]?.response)
-                                                        }
-                                                        helperText={
-                                                            touched.response_options?.[index]?.response &&
-                                                            errors.response_options?.[index]?.response
-                                                        }
-                                                        sx={{ gridColumn: "span 1" }}
-                                                    />
-                                                    <TextField
-                                                        label={`Score ${index + 1}`}
-                                                        onBlur={handleBlur}
-                                                        onChange={handleChange}
-                                                        value={option.score}
-                                                        name={`response_options[${index}].score`}
-                                                        error={
-                                                            Boolean(
-                                                                touched.response_options?.[index]?.score
-                                                            ) &&
-                                                            Boolean(errors.response_options?.[index]?.score)
-                                                        }
-                                                        helperText={
-                                                            touched.response_options?.[index]?.score &&
-                                                            errors.response_options?.[index]?.score
-                                                        }
-                                                        sx={{ gridColumn: "span 1" }}
-                                                    />
-
-                                                    <Button variant="outlined" onClick={() => remove(index)}>
-                                                        Remove Option
-                                                    </Button>
-                                                </Box>
-                                            ))}
-                                            <Button
-                                                variant="outlined"
-                                                onClick={() =>
-                                                    push({ response: "", score: 0 })
-                                                }
-                                            >
-                                                Add Option
-                                            </Button>
-                                        </Box>
-                                    )}
-                                </FieldArray>
-                                <TextField
-                                    label="Order Display in the Questionnaire"
-                                    onBlur={handleBlur}
-                                    onChange={handleChange}
-                                    value={values.order_display_in_the_questionnaire}
-                                    name="order_display_in_the_questionnaire"
-                                    type="number"
-                                    error={
-                                        Boolean(
-                                            touched.order_display_in_the_questionnaire
-                                        ) &&
-                                        Boolean(
-                                            errors.order_display_in_the_questionnaire
-                                        )
-                                    }
-                                    helperText={
-                                        touched.order_display_in_the_questionnaire &&
-                                        errors.order_display_in_the_questionnaire
-                                    }
-                                    sx={{ gridColumn: "span 1" }}
-                                />
-                            </Box>
-
-                            <Box width={'100%'} display={'flex'}>
-                                <Button type="submit" variant="contained" sx={{ margin: "1rem auto" }}>
-                                    Add Question
-                                </Button>
-                            </Box>
-
-                            {questionAdded && (
-                                <Typography sx={{ mt: 2, color: "green" }}>
-                                    Question added successfully!
-                                </Typography>
-                            )}
-                        </form>
-                    )}
-                </Formik>
-            </WidgetWrapper>
-            {isNonMobileScreens ? undefined : <Divider sx={{ width: "100%", height: "2px" }} />}
-            <WidgetWrapper
-                display={'flex'}
-                flexDirection={'column'}
-                alignItems={'flex-start'}
-                justifyContent={'flex-start'}
-                gap={'2rem'}
-                width={isNonMobileScreens ? undefined : '100%'}
-
-            >
-                <Typography
-                    color={palette.neutral.dark}
-                    variant="h5"
-                    fontWeight="500"
-                >
-                    All Tests And Questions
-                </Typography>
-                <Box
+                <WidgetWrapper
+                    display={'flex'}
+                    flexDirection={'column'}
+                    alignItems={'flex-start'}
+                    justifyContent={'flex-start'}
+                    gap={'2rem'}
                     width={isNonMobileScreens ? undefined : '100%'}
+
                 >
-                    <QuestionList />
-                </Box>
-            </WidgetWrapper>
-        </Box>
+                    <Typography
+                        color={palette.neutral.dark}
+                        variant="h5"
+                        fontWeight="500"
+                    >
+                        Add a Test and his Question
+                    </Typography>
+                    <Formik
+                        onSubmit={handleAddQuestion}
+                        initialValues={initialValuesQuestion}
+                        validationSchema={questionSchema}
+                    >
+                        {({
+                            values,
+                            errors,
+                            touched,
+                            handleBlur,
+                            handleChange,
+                            handleSubmit,
+                            setFieldValue,
+                            resetForm,
+                        }) => (
+                            <form onSubmit={handleSubmit}
+                                style={{ width: isNonMobileScreens ? 'auto' : '100%' }}
+                            >
+
+                                <Box
+                                    display="grid"
+                                    gap="30px"
+                                    gridTemplateColumns="repeat(1, minmax(0, 1fr))"
+                                    sx={{
+                                        "& > div": { gridColumn: isNonMobileScreens ? undefined : "span 1" },
+                                    }}
+                                    width={isNonMobileScreens ? undefined : '100%'}
+
+                                >
+                                    <TextField
+                                        label="Question Type"
+                                        onBlur={handleBlur}
+                                        onChange={handleChange}
+                                        value={values.question_type}
+                                        name="question_type"
+                                        error={
+                                            Boolean(touched.question_type) && Boolean(errors.question_type)
+                                        }
+                                        helperText={touched.question_type && errors.question_type}
+                                        sx={{ gridColumn: "span 1" }}
+                                    />
+                                    <TextField
+                                        label="Question Text"
+                                        onBlur={handleBlur}
+                                        onChange={handleChange}
+                                        value={values.question_text}
+                                        name="question_text"
+                                        error={
+                                            Boolean(touched.question_text) && Boolean(errors.question_text)
+                                        }
+                                        helperText={touched.question_text && errors.question_text}
+                                        sx={{ gridColumn: "span 1" }}
+                                    />
+                                    <FieldArray name="response_options">
+                                        {({ push, remove }) => (
+                                            <Box
+                                                display={'flex'}
+                                                flexDirection={'column'}
+                                                gap={'.8rem'}
+                                            >
+                                                {values.response_options.map((option, index) => (
+                                                    <Box key={index}
+                                                        width={'100%'}
+                                                        display={'flex'}
+                                                        justifyContent={'space-between'}
+                                                        alignItems={'center'}
+                                                        gap={'.8rem'}
+                                                    >
+                                                        <TextField
+                                                            label={`Response ${index + 1}`}
+                                                            onBlur={handleBlur}
+                                                            onChange={handleChange}
+                                                            value={option.response}
+                                                            name={`response_options[${index}].response`}
+                                                            error={
+                                                                Boolean(
+                                                                    touched.response_options?.[index]?.response
+                                                                ) &&
+                                                                Boolean(errors.response_options?.[index]?.response)
+                                                            }
+                                                            helperText={
+                                                                touched.response_options?.[index]?.response &&
+                                                                errors.response_options?.[index]?.response
+                                                            }
+                                                            sx={{ gridColumn: "span 1" }}
+                                                        />
+                                                        <TextField
+                                                            label={`Score ${index + 1}`}
+                                                            onBlur={handleBlur}
+                                                            onChange={handleChange}
+                                                            value={option.score}
+                                                            name={`response_options[${index}].score`}
+                                                            error={
+                                                                Boolean(
+                                                                    touched.response_options?.[index]?.score
+                                                                ) &&
+                                                                Boolean(errors.response_options?.[index]?.score)
+                                                            }
+                                                            helperText={
+                                                                touched.response_options?.[index]?.score &&
+                                                                errors.response_options?.[index]?.score
+                                                            }
+                                                            sx={{ gridColumn: "span 1" }}
+                                                        />
+
+                                                        <Button variant="outlined" onClick={() => remove(index)}>
+                                                            Remove Option
+                                                        </Button>
+                                                    </Box>
+                                                ))}
+                                                <Button
+                                                    variant="outlined"
+                                                    onClick={() =>
+                                                        push({ response: "", score: 0 })
+                                                    }
+                                                >
+                                                    Add Option
+                                                </Button>
+                                            </Box>
+                                        )}
+                                    </FieldArray>
+                                    <TextField
+                                        label="Order Display in the Questionnaire"
+                                        onBlur={handleBlur}
+                                        onChange={handleChange}
+                                        value={values.order_display_in_the_questionnaire}
+                                        name="order_display_in_the_questionnaire"
+                                        type="number"
+                                        error={
+                                            Boolean(
+                                                touched.order_display_in_the_questionnaire
+                                            ) &&
+                                            Boolean(
+                                                errors.order_display_in_the_questionnaire
+                                            )
+                                        }
+                                        helperText={
+                                            touched.order_display_in_the_questionnaire &&
+                                            errors.order_display_in_the_questionnaire
+                                        }
+                                        sx={{ gridColumn: "span 1" }}
+                                    />
+                                </Box>
+
+                                <Box width={'100%'} display={'flex'}>
+                                    <Button type="submit" variant="contained" sx={{ margin: "1rem auto" }}>
+                                        Add Question
+                                    </Button>
+                                </Box>
+
+                                {questionAdded && (
+                                    <Typography sx={{ mt: 2, color: "green" }}>
+                                        Question added successfully!
+                                    </Typography>
+                                )}
+                            </form>
+                        )}
+                    </Formik>
+                </WidgetWrapper>
+                {isNonMobileScreens ? undefined : <Divider sx={{ width: "100%", height: "2px" }} />}
+                <WidgetWrapper
+                    display={'flex'}
+                    flexDirection={'column'}
+                    alignItems={'flex-start'}
+                    justifyContent={'flex-start'}
+                    gap={'2rem'}
+                    width={isNonMobileScreens ? undefined : '100%'}
+
+                >
+                    <Typography
+                        color={palette.neutral.dark}
+                        variant="h5"
+                        fontWeight="500"
+                    >
+                        All Tests And Questions
+                    </Typography>
+                    <Box
+                        width={isNonMobileScreens ? undefined : '100%'}
+                    >
+                        <QuestionList />
+                    </Box>
+                </WidgetWrapper>
+            </Box>
         </>
     )
 }

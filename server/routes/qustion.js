@@ -17,4 +17,4 @@ router.delete('/delete/:questionId', verifyToken, deleteOneQuestion)
 // router.get('/', getQustions)
 // router.post('/add', addQuestion)
 
-export default router
+export default router  

@@ -19,7 +19,6 @@ const DoctorPatientData = ({ patientId, userId, name, subtitle, userPicturePath,
 
 
     const handlePatientClick = async () => {
-
         navigate(`/doctor/patietnt/data/${userId}`)
         navigate(0)
     };

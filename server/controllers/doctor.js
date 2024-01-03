@@ -43,21 +43,6 @@ export const getOneDoctor = async (req, res) => {
 
 
 
-export const deleteDoctor = async (req, res) => {
-    try {
-        const { doctorId, userId } = req.body;
-
-        await User.findByIdAndDelete(userId)
-        await Doctor.findByIdAndDelete(doctorId)
-
-
-        res.status(200).json({ message: 'Doctor deleted successfully.' });
-    } catch (err) {
-        res.status(404).json({ message: err.message });
-    }
-}
-
-
 export const updateAccess = async (req, res) => {
     try {
         var { data_access_value } = req.body
@@ -95,10 +80,24 @@ export const addPatient = async (req, res) => {
     }
 }
 
+
+export const deleteDoctor = async (req, res) => {
+    try {
+        const { doctorId, userId } = req.body;
+
+        await User.findByIdAndDelete(userId)
+        await Doctor.findByIdAndDelete(doctorId)
+
+
+        res.status(200).json({ message: 'Doctor deleted successfully.' });
+    } catch (err) {
+        res.status(404).json({ message: err.message });
+    }
+}
+
 export const MyPatients = async (req, res) => {
     try {
         const { doctorID } = req.params
-
         const objectId = mongoose.Types.ObjectId(doctorID);
         const doctor = await Doctor.findOne({ User_id: objectId });
 

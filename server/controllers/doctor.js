@@ -95,14 +95,26 @@ export const deleteDoctor = async (req, res) => {
     }
 }
 
+
 export const MyPatients = async (req, res) => {
     try {
-        const { doctorID } = req.params
+        const { doctorID } = req.params;
         const objectId = mongoose.Types.ObjectId(doctorID);
         const doctor = await Doctor.findOne({ User_id: objectId });
+
+        if (doctor && doctor.myPatient && doctor.myPatient.length > 0) {
+            doctor.myPatient = await Promise.all(
+                doctor.myPatient.map(async (patient) => {
+                    const userExists = await User.exists({ _id: patient });
+                    return userExists ? patient : null;
+                })
+            );
+
+            doctor.myPatient = doctor.myPatient.filter((patient) => patient !== null);
+        }
 
         res.status(200).json({ doctor });
     } catch (err) {
         res.status(404).json({ message: err.message });
     }
-}
+};   

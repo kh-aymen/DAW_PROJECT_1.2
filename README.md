@@ -16,7 +16,7 @@ Development of a Web Platform for the Prediction and Management of Video Game Ad
 2. **Git:** Make sure you have `Git` installed. If not, download it from the [Git website](https://git-scm.com/downloads).
 3. **Clone Repository:**
    ```bash
-   git clone https://github.com/DIZAD99/DAW_PROJECT_1.2.git
+   git clone https://github.com/kh-aymen/DAW_PROJECT_1.2.git
 4. **Go to `DAW_Project`:**
    ```bash
    cd DAW_Project

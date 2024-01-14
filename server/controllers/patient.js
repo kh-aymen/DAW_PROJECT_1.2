@@ -1,38 +1,38 @@
-import mongoose from "mongoose";
-import Patient from "../models/Patient.js";
-import User from "../models/User.js";
+import mongoose from "mongoose"
+import Patient from "../models/Patient.js"
+import User from "../models/User.js"
 
 export const getPatient = async (req, res) => {
     try {
-        const patientData = await Patient.find();
+        const patientData = await Patient.find()
 
         const patientsWithUser = await Promise.all(
             patientData.map(async (patient) => {
-                const user = await User.findById(patient.User_id);
+                const user = await User.findById(patient.User_id)
                 return {
                     ...patient.toObject(),
                     user: user.toObject(),
-                };
+                }
             })
-        );
-        res.status(200).json(patientsWithUser);
+        )
+        res.status(200).json(patientsWithUser)
     } catch (err) {
-        res.status(404).json({ message: err.message });
+        res.status(404).json({ message: err.message })
     }
 }
 
 export const deletePatient = async (req, res) => {
     try {
-        const { patientId, userId } = req.body;
-        console.log(patientId, userId);
+        const { patientId, userId } = req.body
+        console.log(patientId, userId)
 
         await User.findByIdAndDelete(userId)
         await Patient.findByIdAndDelete(patientId)
 
 
-        res.status(200).json({ message: 'Patient deleted successfully.' });
+        res.status(200).json({ message: 'Patient deleted successfully.' })
     } catch (err) {
-        res.status(404).json({ message: err.message });
+        res.status(404).json({ message: err.message })
     }
 }
 
@@ -41,14 +41,14 @@ export const getMyDoctor = async (req, res) => {
         const { id } = req.params
         const user = await User.findById(id)
         if (!user) {
-            return res.status(404).json({ message: 'user not found' });
+            return res.status(404).json({ message: 'user not found' })
         }
 
         const patient = await Patient.findOne({ User_id: user._id })
 
-        res.status(200).json({ patient });
+        res.status(200).json({ patient })
     } catch (err) {
-        res.status(404).json({ message: err.message });
+        res.status(404).json({ message: err.message })
     }
 }
 
@@ -59,15 +59,15 @@ export const addDoctor = async (req, res) => {
 
         const user = await User.findById(id)
         if (!user) {
-            return res.status(404).json({ message: 'user not found' });
+            return res.status(404).json({ message: 'user not found' })
         }
 
         const patient = await Patient.findOne({ User_id: user._id })
         patient.myDoctor = doctor
         patient.save()
-        res.status(200).json({ patient });
+        res.status(200).json({ patient })
     } catch (err) {
-        res.status(404).json({ message: err.message });
+        res.status(404).json({ message: err.message })
     }
 }
 
@@ -77,15 +77,15 @@ export const getMyplansAndReviews = async (req, res) => {
 
         const user = await User.findById(id)
         if (!user) {
-            return res.status(404).json({ message: 'user not found' });
+            return res.status(404).json({ message: 'user not found' })
         }
 
         const patient = await Patient.findOne({ User_id: user._id })
 
         const data = patient.MyplansAndReviews
-        res.status(200).json({ data });
+        res.status(200).json({ data })
     } catch (err) {
-        res.status(404).json({ message: err.message });
+        res.status(404).json({ message: err.message })
     }
 }
 
@@ -96,15 +96,15 @@ export const setMyplansAndReviews = async (req, res) => {
         const user = await User.findById(id)
 
         if (!user) {
-            return res.status(404).json({ message: 'user not found' });
+            return res.status(404).json({ message: 'user not found' })
         }
         const patient = await Patient.findOne({ User_id: user._id })
         patient.score = scorevalue
         patient.save()
         const data = patient.score
-        res.status(200).json({ data });
+        res.status(200).json({ data })
     } catch (err) {
-        res.status(404).json({ message: err.message });
+        res.status(404).json({ message: err.message })
     }
 }
 export const setMyplansAndReviewsComment = async (req, res) => {
@@ -114,15 +114,15 @@ export const setMyplansAndReviewsComment = async (req, res) => {
         const user = await User.findById(id)
 
         if (!user) {
-            return res.status(404).json({ message: 'user not found' });
+            return res.status(404).json({ message: 'user not found' })
         }
         const patient = await Patient.findOne({ User_id: user._id })
         patient.comments = commentsvalue
         patient.save()
         const data = patient.comments
-        res.status(200).json({ data });
+        res.status(200).json({ data })
     } catch (err) {
-        res.status(404).json({ message: err.message });
+        res.status(404).json({ message: err.message })
     }
 }
 export const setMyplansAndReviewsappointmentDate = async (req, res) => {
@@ -133,26 +133,26 @@ export const setMyplansAndReviewsappointmentDate = async (req, res) => {
         const user = await User.findById(id)
 
         if (!user) {
-            return res.status(404).json({ message: 'user not found' });
+            return res.status(404).json({ message: 'user not found' })
         }
         const patient = await Patient.findOne({ User_id: user._id })
         patient.appointment = appointmentDate
         patient.save()
         const data = patient.appointment
-        res.status(200).json({ data });
+        res.status(200).json({ data })
     } catch (err) {
-        res.status(404).json({ message: err.message });
+        res.status(404).json({ message: err.message })
     }
 }
 
 export const getResult = async (req, res) => {
     try {
         const { id } = req.params
-        const objectId = mongoose.Types.ObjectId(id);
+        const objectId = mongoose.Types.ObjectId(id)
 
         const patient = await Patient.findOne({ User_id: objectId })
-        res.status(200).json({patient});
+        res.status(200).json({patient})
     } catch (err) {
-        res.status(404).json({ message: err.message });
+        res.status(404).json({ message: err.message })
     }
 }

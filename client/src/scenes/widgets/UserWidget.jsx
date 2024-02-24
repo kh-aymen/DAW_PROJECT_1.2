@@ -40,8 +40,8 @@ const UserWidget = ({ userId, picturePath, moreinfo, from }) => {
     dispatch(setUser({ user: data.user }))
   }
   useEffect(() => {
-    getUser()
-  }, [handleRestAllTests])
+    getUser();
+  }, [userId, token]);
 
   if (!user) {
     return null

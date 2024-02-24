@@ -15,7 +15,7 @@ const HomePage = () => {
 
 
   const getDoctor = async () => {
-    const response = await fetch(`http://localhost:3001/doctors/getone/${_id}`, {
+    const response = await fetch(`https://daw-project-1-2.onrender.com/doctors/getone/${_id}`, {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     })
@@ -50,7 +50,7 @@ const HomePage = () => {
         </Box>
         <Box flexBasis="26%">
           {/* <AdvertWidget /> */}
-          <AddDeleteQuestion  access={access}/>
+          <AddDeleteQuestion access={access} />
           <Box m="2rem 0" />
           <ShowAllPatientToDoctor access={access} />
           {/* <Widget here /> */}

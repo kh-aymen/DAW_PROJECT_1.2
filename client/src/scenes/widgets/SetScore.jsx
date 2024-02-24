@@ -17,7 +17,7 @@ export const SetScore = ({ userId }) => {
 
     const MyplansAndReviews = async () => {
         try {
-            const response = await fetch(`http://localhost:3001/patients/getMyplansAndReviews/${userId}`, {
+            const response = await fetch(`https://daw-project-1-2.onrender.com/patients/getMyplansAndReviews/${userId}`, {
                 method: 'GET',
                 headers: { Authorization: `Bearer ${token}` },
             });
@@ -35,7 +35,7 @@ export const SetScore = ({ userId }) => {
 
     const MyplansAndReviewsPost = async () => {
         try {
-            const response = await fetch(`http://localhost:3001/patients/setMyplansAndReviews/${userId}`, {
+            const response = await fetch(`https://daw-project-1-2.onrender.com/patients/setMyplansAndReviews/${userId}`, {
                 method: 'POST',
                 headers: {
                     Authorization: `Bearer ${token}`,

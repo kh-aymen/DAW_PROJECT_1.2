@@ -31,7 +31,7 @@ const QuestionList = () => {
 
     const getQuestions = async () => {
         try {
-            const response = await fetch("http://localhost:3001/question", {
+            const response = await fetch("https://daw-project-1-2.onrender.com/question", {
                 method: "GET",
                 headers: { Authorization: `Bearer ${token}` },
             });
@@ -60,7 +60,7 @@ const QuestionList = () => {
 
     const handleConfirmDeleteAll = async (questionType) => {
         try {
-            const response = await fetch(`http://localhost:3001/question/deleteAll/${questionType}`, {
+            const response = await fetch(`https://daw-project-1-2.onrender.com/question/deleteAll/${questionType}`, {
                 method: "DELETE",
                 headers: { Authorization: `Bearer ${token}` },
             });
@@ -84,7 +84,7 @@ const QuestionList = () => {
 
     const handleConfirmDeleteQuestion = async (questionId) => {
         try {
-            const response = await fetch(`http://localhost:3001/question/delete/${questionId}`, {
+            const response = await fetch(`https://daw-project-1-2.onrender.com/question/delete/${questionId}`, {
                 method: "DELETE",
                 headers: { Authorization: `Bearer ${token}` },
             });

@@ -25,7 +25,7 @@ const Doctor = ({ doctorId, userId, name, subtitle, userPicturePath, birthday, e
 
 
   const getDoctor = async () => {
-    await fetch(`http://localhost:3001/doctors/delete`, {
+    await fetch(`https://daw-project-1-2.onrender.com/doctors/delete`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,

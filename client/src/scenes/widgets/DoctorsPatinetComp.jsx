@@ -24,7 +24,7 @@ export const DoctorsPatinetComp = () => {
 
     const getMyPatients = async () => {
         try {
-            const response = await fetch(`http://localhost:3001/doctors/MyPatients/${_id}`, {
+            const response = await fetch(`https://daw-project-1-2.onrender.com/doctors/MyPatients/${_id}`, {
                 method: "GET",
                 headers: { Authorization: `Bearer ${token}` },
             });
@@ -45,7 +45,7 @@ export const DoctorsPatinetComp = () => {
             p.lastName.toLowerCase().includes(searchTerm.toLowerCase())
     )
 
-console.log(filteredPatient)
+    console.log(filteredPatient)
     return (
         <>
             <Navbar />

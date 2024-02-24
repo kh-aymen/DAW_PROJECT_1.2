@@ -24,7 +24,7 @@ const UserWidget = ({ userId, picturePath, moreinfo, from }) => {
   const main = palette.neutral.main
 
   const getUser = async () => {
-    const response = await fetch(`http://localhost:3001/users/${userId}`, {
+    const response = await fetch(`https://daw-project-1-2.onrender.com/users/${userId}`, {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     })
@@ -32,7 +32,7 @@ const UserWidget = ({ userId, picturePath, moreinfo, from }) => {
     setUser(data)
   }
   const handleRestAllTests = async () => {
-    const response = await fetch(`http://localhost:3001/users/restResulte/${userId}`, {
+    const response = await fetch(`https://daw-project-1-2.onrender.com/users/restResulte/${userId}`, {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     })

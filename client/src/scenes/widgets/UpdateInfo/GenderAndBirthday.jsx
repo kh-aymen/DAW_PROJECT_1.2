@@ -19,7 +19,7 @@ const GenderAndBirthdayForm = () => {
 
     const handleUpdateGenderAndBirthday = async (values, { resetForm }) => {
         try {
-            const response = await fetch(`http://localhost:3001/users/here#####################################/${userId}`, {
+            const response = await fetch(`https://daw-project-1-2.onrender.com/users/here#####################################/${userId}`, {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${token}`,

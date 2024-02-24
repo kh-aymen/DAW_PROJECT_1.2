@@ -64,7 +64,7 @@ const QuestionForm = () => {
                 order_display_in_the_questionnaire,
             }
 
-            const response = await fetch("http://localhost:3001/question/add", {
+            const response = await fetch("https://daw-project-1-2.onrender.com/question/add", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

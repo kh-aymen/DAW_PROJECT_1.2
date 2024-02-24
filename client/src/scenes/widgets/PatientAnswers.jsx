@@ -32,7 +32,7 @@ export const PatientAnswers = ({ userId, from }) => {
     useEffect(() => {
         const getUser = async () => {
             try {
-                const response = await fetch(`http://localhost:3001/users/${userId}`, {
+                const response = await fetch(`https://daw-project-1-2.onrender.com/users/${userId}`, {
                     method: 'GET',
                     headers: { Authorization: `Bearer ${token}` },
                 });
@@ -46,7 +46,7 @@ export const PatientAnswers = ({ userId, from }) => {
 
         const setDoctor = async () => {
             try {
-                const response = await fetch(`http://localhost:3001/users/setDoctor/${userId}`, {
+                const response = await fetch(`https://daw-project-1-2.onrender.com/users/setDoctor/${userId}`, {
                     method: 'GET',
                     headers: { Authorization: `Bearer ${token}` },
                 });
@@ -90,7 +90,7 @@ export const PatientAnswers = ({ userId, from }) => {
                     {Object.entries(typeScores).map(([type, totalScore]) => (
                         <Box key={type} style={{ margin: '8px 0' }}>
                             <Typography variant="h5" color={dark} fontWeight="400">
-                               -- {type} <strong>Total Score: {totalScore}</strong>
+                                -- {type} <strong>Total Score: {totalScore}</strong>
                             </Typography>
                         </Box>
                     ))}

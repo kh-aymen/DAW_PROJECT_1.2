@@ -36,7 +36,7 @@ const DoctorAccess = ({
         }
 
         try {
-            const response = await fetch(`http://localhost:3001/doctors/access/${doctorId}`, {
+            const response = await fetch(`https://daw-project-1-2.onrender.com/doctors/access/${doctorId}`, {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${token}`,

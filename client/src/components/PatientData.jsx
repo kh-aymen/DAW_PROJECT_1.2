@@ -20,14 +20,14 @@ const PatientData = ({ patientId, userId, name, subtitle, userPicturePath, birth
     const defaultColor = palette.background.default
 
     const getUserAndsetDactorsPatient = async () => {
-        const response = await fetch(`http://localhost:3001/users/${userId}`, {
+        const response = await fetch(`https://daw-project-1-2.onrender.com/users/${userId}`, {
             method: "GET",
             headers: { Authorization: `Bearer ${token}` },
         })
         const data = await response.json()
 
 
-        const response2 = await fetch(`http://localhost:3001/doctors/addPatient/${userId}/${userFromRedux._id}`, {
+        const response2 = await fetch(`https://daw-project-1-2.onrender.com/doctors/addPatient/${userId}/${userFromRedux._id}`, {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -37,7 +37,7 @@ const PatientData = ({ patientId, userId, name, subtitle, userPicturePath, birth
         })
         const data2 = await response2.json()
 
-        const response3 = await fetch(`http://localhost:3001/patients/addDoctor/${userId}`, {
+        const response3 = await fetch(`https://daw-project-1-2.onrender.com/patients/addDoctor/${userId}`, {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${token}`,

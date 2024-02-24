@@ -24,7 +24,7 @@ const Patient = ({ patientId, userId, name, subtitle, userPicturePath, birthday,
 
 
     const getPatient = async () => {
-        await fetch(`http://localhost:3001/patients/delete`, {
+        await fetch(`https://daw-project-1-2.onrender.com/patients/delete`, {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${token}`,

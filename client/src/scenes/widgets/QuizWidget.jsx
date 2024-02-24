@@ -48,7 +48,7 @@ const QuizForm = () => {
 
     useEffect(() => {
         const getQuestions = async () => {
-            const response = await fetch("http://localhost:3001/question", {
+            const response = await fetch("https://daw-project-1-2.onrender.com/question", {
                 method: "GET",
                 headers: { Authorization: `Bearer ${token}` },
             })
@@ -77,7 +77,7 @@ const QuizForm = () => {
 
 
     const setTestResult = async (TestResult) => {
-        const response = await fetch(`http://localhost:3001/users/addTestResulte/${user._id}`, {
+        const response = await fetch(`https://daw-project-1-2.onrender.com/users/addTestResulte/${user._id}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

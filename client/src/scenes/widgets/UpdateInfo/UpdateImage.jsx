@@ -28,7 +28,7 @@ const UpdateImage = ({ userId, picturePath }) => {
 
         try {
             const response = await fetch(
-                `http://localhost:3001/auth/UpdateImage/${userId}`,
+                `https://daw-project-1-2.onrender.com/auth/UpdateImage/${userId}`,
                 {
                     method: "POST",
                     headers: {

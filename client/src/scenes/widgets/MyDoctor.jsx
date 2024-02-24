@@ -17,7 +17,7 @@ export const MyDoctor = () => {
 
     const getMydoctor = async () => {
         try {
-            const response = await fetch(`http://localhost:3001/patients/getMyDoctor/${user._id}`, {
+            const response = await fetch(`https://daw-project-1-2.onrender.com/patients/getMyDoctor/${user._id}`, {
                 method: "GET",
                 headers: { Authorization: `Bearer ${token}` },
             });

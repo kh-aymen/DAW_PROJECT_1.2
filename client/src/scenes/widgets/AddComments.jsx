@@ -19,7 +19,7 @@ export const AddComments = ({ userId }) => {
 
     const MyplansAndReviewsPost = async () => {
         try {
-            const response = await fetch(`http://localhost:3001/patients/setMyplansAndReviews/comment/${userId}`, {
+            const response = await fetch(`https://daw-project-1-2.onrender.com/patients/setMyplansAndReviews/comment/${userId}`, {
                 method: 'POST',
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -35,7 +35,7 @@ export const AddComments = ({ userId }) => {
 
     const MyplansAndReviewsPostDate = async () => {
         try {
-            const response = await fetch(`http://localhost:3001/patients/setMyplansAndReviews/appointmentDate/${userId}`, {
+            const response = await fetch(`https://daw-project-1-2.onrender.com/patients/setMyplansAndReviews/appointmentDate/${userId}`, {
                 method: 'POST',
                 headers: {
                     Authorization: `Bearer ${token}`,

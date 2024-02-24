@@ -17,7 +17,7 @@ const ShowDoctors = () => {
     const isNonMobileScreens = useMediaQuery("(min-width:1000px)")
 
     const getDoctor = useCallback(async () => {
-        const response = await fetch(`http://localhost:3001/doctors/`, {
+        const response = await fetch(`https://daw-project-1-2.onrender.com/doctors/`, {
             method: "GET",
             headers: { Authorization: `Bearer ${token}` },
         })

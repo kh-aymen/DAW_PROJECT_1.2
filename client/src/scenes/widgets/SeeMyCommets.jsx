@@ -13,7 +13,7 @@ export const SeeMyCommets = ({ userId }) => {
 
     const getMyResult = async () => {
         try {
-            const response = await fetch(`http://localhost:3001/patients/getResult/${userId}`, {
+            const response = await fetch(`https://daw-project-1-2.onrender.com/patients/getResult/${userId}`, {
                 method: 'GET',
                 headers: { Authorization: `Bearer ${token}` },
             });
